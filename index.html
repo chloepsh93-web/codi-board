@@ -156,6 +156,7 @@ function lookTitle(l) {
   const garments=l.items.map(itemById).filter(w=>w && !w.id.startsWith('A'));
   const key=garments.filter(w=>w.category.startsWith('아우터/') || w.category.startsWith('원피스/'));
   const basis=(key.length?key:garments).slice(0,1);
+  if(key.length>1) basis.push(key[1]);
   const bottom=garments.find(w=>/^(바지|치마)\//.test(w.category));
   const top=garments.find(w=>w.category.startsWith('상의/'));
   if(bottom && !basis.includes(bottom)) basis.push(bottom);
@@ -194,7 +195,7 @@ function showBoard(num) { homeState.selected=num; renderBoard(); document.queryS
 
 // 확인한 보유 아이템 연결만 사용하고, 사진과 다른 부분은 본문에 표시한다.
 const REF_MATCHES = {
-  3:[['ベ이지 프린지 머플러','A18','아이보리 프린지 머플러로 대체']],
+  3:[['베이지 프린지 머플러','A18','아이보리 프린지 머플러로 대체']],
   16:[['카멜 롱코트','O12',''],['화이트 티셔츠','T35',''],['연청 진','B42','보유 바지는 부츠컷'],['블랙 프린지 머플러','A15','보유 머플러는 골지 니트']],
   17:[['블랙 롱코트','O14',''],['화이트 티셔츠','T35',''],['다크진','B41',''],['블랙 볼캡','A02','']],
   19:[['베이지 프린지 머플러','A18','아이보리 프린지 머플러로 대체']],
