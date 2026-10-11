@@ -169,6 +169,7 @@ async function copyReference(label, button) {
 let seasonFilter='all';
 function setSeasonFilter(value) { seasonFilter=value; renderOutfits(); }
 function colorSwatch(color) {
+  color=color.split(/[+\/(]/)[0];
   const tones=[['아이보리','#f1e7ce'],['화이트','#fafafa'],['블랙','#292520'],['네이비','#303b5c'],['그레이지','#b9afa1'],['그레이','#a7a7a7'],['회색','#a7a7a7'],['차콜','#565656'],['베이지','#d6c09e'],['브라운','#76503b'],['카멜','#b88c57'],['오트밀','#d6ccb7'],['블루','#7897bb'],['소라','#a4c5df'],['청','#7897bb'],['그린','#607c55'],['카키','#777c53'],['머스타드','#c5a142'],['옐로우','#e3cb88'],['핑크','#dcb1bb'],['레드','#b44545'],['코랄','#d88678'],['러스트','#9c573b'],['버건디','#742d43'],['실버','#babbbc']];
   return (tones.find(([name])=>color.includes(name)) || ['','#bbb'])[1];
 }
@@ -330,7 +331,7 @@ function garmentLength(w) {
   return {rank:3,label:'기장 미확인'};
 }
 function colorRank(w) {
-  const c=w.color;
+  const c=w.color.split(/[+\/(]/)[0];
   const ranks=[[/화이트/,0],[/아이보리|오트밀/,1],[/베이지|그레이지/,2],[/옐로우|머스타드/,3],[/러스트|코랄/,4],[/핑크/,5],[/레드|버건디/,6],[/그린|카키/,7],[/소라|스카이|라이트블루|삭스블루/,8],[/연청/,9],[/블루|청/,10],[/네이비/,11],[/카멜|브라운|모카/,12],[/그레이|회색|실버/,13],[/차콜/,14],[/블랙|검정/,15]];
   return (ranks.find(([re])=>re.test(c)) || [null,16])[1];
 }
