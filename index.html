@@ -13,6 +13,7 @@
   --border: #e8e8e8;
   --accent: #1a1a1a;
   --danger: #c0392b;
+  --serif: Georgia, "Times New Roman", "Noto Serif KR", serif;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
@@ -31,7 +32,7 @@ header {
   padding: 16px 20px;
   display: flex; align-items: center; justify-content: space-between;
 }
-.logo { font-size: 20px; font-weight: 700; letter-spacing: 2px; }
+.logo { font-size: 22px; font-weight: 700; letter-spacing: 1px; font-family: var(--serif); }
 .weather { font-size: 13px; color: var(--muted); text-align: right; }
 .weather b { color: var(--text); }
 nav.tabs {
@@ -63,7 +64,8 @@ main { max-width: 1200px; margin: 0 auto; padding: 24px 20px 80px; }
 .wx-city .wx-temp { font-size: 44px; font-weight: 700; line-height: 1.1; letter-spacing: -1px; }
 .wx-city .wx-minmax { font-size: 12px; color: var(--muted); }
 .home-guide { font-size: 14px; color: var(--muted); margin: 12px 0 24px; }
-.home-date { font-size: 13px; color: var(--muted); letter-spacing: 1px; margin-bottom: 4px; }
+.home-date { font-size: 13px; color: var(--muted); letter-spacing: 2px; margin-bottom: 8px; text-transform: uppercase; }
+.home-weather-title { font-family: var(--serif); font-size: 32px; font-weight: 700; margin: 8px 0 16px; letter-spacing: -0.5px; }
 
 /* 홈 - 추천 카드 */
 .rec-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
@@ -204,12 +206,24 @@ main { max-width: 1200px; margin: 0 auto; padding: 24px 20px 80px; }
 .lightbox .lb-caption { position: absolute; bottom: 24px; left: 0; right: 0; text-align: center; color: #fff; font-size: 15px; }
 .item-card img { cursor: zoom-in; }
 .look-ref img { cursor: zoom-in; }
+
+.curated-label { font-family: var(--serif); font-size: 14px; letter-spacing: 4px; color: var(--muted); margin: 32px 0 8px; text-transform: uppercase; }
+.rec-section-title { font-family: var(--serif); font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+.rec-subtitle { font-size: 14px; color: var(--muted); margin-bottom: 20px; }
+.select-look-label { font-family: var(--serif); font-size: 13px; letter-spacing: 3px; color: var(--muted); text-align: center; margin: 24px 0 16px; text-transform: uppercase; }
+
+
+.outfits-header { margin-bottom: 24px; }
+.outfits-title { font-family: var(--serif); font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+.outfits-guide { font-size: 14px; color: var(--muted); }
+.wardrobe-title, .records-title, .refs-title { font-family: var(--serif); font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+
 </style>
 </head>
 <body>
 <header>
   <div class="header-inner">
-    <div class="logo">CODI BOARD</div>
+    <div class="logo">코디 보드</div>
     <div class="weather" id="weather">날씨 불러오는 중...</div>
   </div>
   <nav class="tabs">
@@ -223,9 +237,14 @@ main { max-width: 1200px; margin: 0 auto; padding: 24px 20px 80px; }
 <main>
   <section id="tab-home" class="tab-panel active">
     <div class="home-date" id="home-date"></div>
+    <div class="home-weather-title">오늘의 날씨</div>
     <div class="home-weather" id="home-weather"></div>
     <p class="home-guide">오늘 날씨에 맞는 코디를 추천해드려요.</p>
+    <div class="curated-label">CURATED FOR TODAY</div>
+    <div class="rec-section-title">오늘의 코디 추천</div>
+    <div class="rec-subtitle" id="rec-subtitle"></div>
     <div class="rec-cards" id="rec-cards"></div>
+    <div class="select-look-label">SELECT A LOOK</div>
     <div class="style-board" id="style-board">
       <h2>TODAY'S LOOK</h2>
       <div class="board-canvas" id="board-canvas"></div>
@@ -233,14 +252,20 @@ main { max-width: 1200px; margin: 0 auto; padding: 24px 20px 80px; }
     </div>
   </section>
   <section id="tab-outfits" class="tab-panel">
+    <div class="outfits-header">
+      <h2 class="outfits-title">오늘 뭐 입지?</h2>
+      <p class="outfits-guide">일러스트를 눌러보시면 아이템 상세도 볼 수 있어요.</p>
+    </div>
     <div class="look-grid" id="outfit-list"></div>
   </section>
   <section id="tab-wardrobe" class="tab-panel">
+    <h2 class="wardrobe-title">내 옷장</h2>
     <div class="wardrobe-count" id="wardrobe-count"></div>
     <div class="filter-bar" id="wardrobe-filter"></div>
     <div class="wardrobe-grid" id="wardrobe-grid"></div>
   </section>
   <section id="tab-records" class="tab-panel">
+    <h2 class="records-title">기록</h2>
     <div class="record-form">
       <input type="date" id="rec-date">
       <select id="rec-look"></select>
@@ -249,6 +274,7 @@ main { max-width: 1200px; margin: 0 auto; padding: 24px 20px 80px; }
     <div class="record-list" id="record-list"></div>
   </section>
   <section id="tab-refs" class="tab-panel">
+    <h2 class="refs-title">스타일 레퍼런스</h2>
     <div class="ref-grid" id="ref-grid"></div>
   </section>
 </main>
@@ -495,6 +521,11 @@ function renderHome() {
       <div class="rec-concept">${esc(l.concept || '')}</div>
     </div>`;
   }).join('');
+  // 추천 서브타이틀 업데이트
+  const subtitleEl = document.getElementById('rec-subtitle');
+  if (subtitleEl) {
+    subtitleEl.textContent = `오늘 ${temp}℃ 추천 옵션 ${recs.length}개`;
+  }
   renderBoard();
 }
 
