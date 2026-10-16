@@ -49,9 +49,9 @@
   <section id="tab-outfits" class="tab-panel">
     <div class="outfits-header">
       <h2 class="outfits-title">오늘 뭐 입지?</h2>
-      <p class="outfits-guide">추천온도별로 계절 탭을 골라 코디를 확인하세요. 온도 범위는 옷의 두께와 레이어드를 고려한 참고값이며, 실제 보온감은 다를 수 있어요.</p>
+      <p class="outfits-guide">봄·여름·가을·겨울 탭에서 코디를 확인하세요.</p>
     </div>
-    <div class="temperature-groups" id="outfit-list"></div>
+    <div id="outfit-list"></div>
   </section>
   <section id="tab-wardrobe" class="tab-panel">
     <h2 class="wardrobe-title">내 옷장</h2>
@@ -265,35 +265,24 @@ function outfitCard(l) {
   return `<article class="look-card" id="look-${l.num}"><div class="look-topline"><div class="palette">${chips}</div><span class="temp-badge">${temperature}</span></div><div class="look-items">${ref}${items.map(w=>itemCard(w)).join('')}</div><h3 class="look-title">${esc(lookTitle(l))}</h3><p class="look-note">${esc(l.reason || l.note || '')}</p>${reference?`<details class="look-reference-meta"><summary>레퍼런스 구성과 보유 아이템 비교</summary><div class="ref-info">${referenceMeta(reference)}</div></details>`:''}<div class="look-tags">${seasons.map(x=>`<span>${x}</span>`).join('')}<span>${esc(l.concept || '데일리')}</span><button class="btn-small copy-id" onclick="copyReference('LOOK ${l.num}',this)">LOOK ${l.num} · 번호 복사</button></div><div class="look-actions"><button class="btn-board" onclick="showBoard(${l.num})">스타일링 보드 보기</button><button class="btn-delete" onclick="deleteLook(${l.num})">코디 삭제</button></div></article>`;
 }
 
-const temperatureSeasonFilters={};
-function outfitTemperatureGroups(looks){
-  const groups=new Map();
-  looks.forEach(l=>{
-    const known=Number.isFinite(l.temp_lo)&&Number.isFinite(l.temp_hi);
-    const key=(l.from_record?'worn_':'')+(known?l.temp_lo+'_'+l.temp_hi:'unknown');
-    if(!groups.has(key))groups.set(key,{key,lo:known?l.temp_lo:Infinity,hi:known?l.temp_hi:Infinity,label:known?(l.from_record?'착용일 기온 ':'추천 ')+l.temp_lo+'–'+l.temp_hi+'°C':(l.from_record?'착용일 기온 확인 중':'온도 정보 없는 코디'),looks:[]});
-    groups.get(key).looks.push(l);
-  });
-  return [...groups.values()].sort((a,b)=>a.lo-b.lo||a.hi-b.hi);
-}
-function setTemperatureSeason(key,season){
-  temperatureSeasonFilters[key]=season;renderOutfits();
-  document.getElementById('season-'+key+'-'+season)?.focus();
+let outfitSeason=currentSeason();
+function setOutfitSeason(season){
+  if(!SEASONS.includes(season))return;
+  outfitSeason=season;renderOutfits();
+  document.getElementById('outfit-season-'+season)?.focus();
 }
 function renderOutfits(){
   const visible=LOOKS.filter(l=>!isDeleted(l.num));
-  document.getElementById('outfit-list').innerHTML=outfitTemperatureGroups(visible).map(group=>{
-    const selected=temperatureSeasonFilters[group.key]||'all';
-    const list=group.looks.filter(l=>selected==='all'||getLookSeasons(l).includes(selected));
-    const tabs=['all',...SEASONS].map(season=>{
-      const count=season==='all'?group.looks.length:group.looks.filter(l=>getLookSeasons(l).includes(season)).length;
-      return `<button id="season-${group.key}-${season}" role="tab" aria-selected="${season===selected}" aria-controls="cards-${group.key}" class="${season===selected?'active':''}" onclick="setTemperatureSeason('${group.key}','${season}')">${season==='all'?'전체':season} <small>${count}</small></button>`;
-    }).join('');
-    return `<section class="temperature-section" data-temperature="${group.key}"><div class="temperature-heading"><h3>${group.label}</h3><span class="count">총 ${group.looks.length}개</span></div><div class="filter-bar temperature-seasons" role="tablist" aria-label="${group.label} 계절">${tabs}</div><div id="cards-${group.key}" role="tabpanel" aria-labelledby="season-${group.key}-${selected}" class="look-grid">${list.map(outfitCard).join('')||'<div class="empty">이 온도·계절에 등록된 코디가 없습니다.</div>'}</div></section>`;
-  }).join('')||'<div class="empty">등록된 코디가 없습니다.</div>';
+  const list=visible.filter(l=>getLookSeasons(l).includes(outfitSeason));
+  const tabs=SEASONS.map(season=>{
+    const count=visible.filter(l=>getLookSeasons(l).includes(season)).length;
+    return `<button id="outfit-season-${season}" role="tab" aria-selected="${season===outfitSeason}" aria-controls="outfit-season-cards" class="${season===outfitSeason?'active':''}" onclick="setOutfitSeason('${season}')">${season} <small>${count}</small></button>`;
+  }).join('');
+  document.getElementById('outfit-list').innerHTML=`<div class="filter-bar" role="tablist" aria-label="코디 계절">${tabs}</div><div id="outfit-season-cards" role="tabpanel" aria-labelledby="outfit-season-${outfitSeason}" class="look-grid">${list.map(outfitCard).join('')||'<div class="empty">이 계절에 등록된 코디가 없습니다.</div>'}</div>`;
   const sel=document.getElementById('rec-look');const previous=sel.value;
   sel.innerHTML=visible.map(l=>`<option value="${l.num}">LOOK ${l.num} · ${esc(lookTitle(l))}</option>`).join('');
   if(visible.some(l=>String(l.num)===previous))sel.value=previous;
+
 }
 
 function esc(s) {
