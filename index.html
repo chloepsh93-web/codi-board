@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>코디 보드</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root {--bg:#f7f7f5;--card:#fff;--text:#171717;--muted:#6d6d69;--border:#deded9;--danger:#a92740}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid #847062;outline-offset:4px}header{background:#fff;border-bottom:6px solid #e8e8e6;position:sticky;top:0;z-index:100}.header-inner{height:88px;display:flex;align-items:center;justify-content:center;position:relative;border-bottom:1px solid var(--border)}.logo{font-size:30px;font-weight:800;letter-spacing:-1px}.header-back{position:absolute;left:24px;border:0;background:none;width:40px;height:40px}.header-back svg{width:24px;height:24px}.header-menu{position:absolute;right:24px;top:24px}.header-menu summary{list-style:none;cursor:pointer;font-size:26px;line-height:40px}.header-menu summary::-webkit-details-marker{display:none}.menu-content{position:absolute;right:0;background:white;border:1px solid var(--border);padding:16px;width:240px;font-size:13px;box-shadow:0 8px 20px #0001}.menu-content a{color:inherit;display:block;margin-top:12px}nav.tabs{display:grid;grid-template-columns:repeat(5,1fr);height:96px}nav.tabs button{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:0;background:none;color:#787873;font-size:16px;font-weight:700}nav.tabs svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.7}nav.tabs button.active{color:#171717}nav.tabs button.active:after{content:"";position:absolute;bottom:14px;width:28px;height:3px;background:currentColor}main{max-width:1280px;margin:auto;padding:44px 24px 80px}.tab-panel{display:none}.tab-panel.active{display:block}h2,.home-weather-title,.rec-section-title{font-size:38px;line-height:1.3;font-weight:800;letter-spacing:-1.4px}.home-date,.curated-label,.select-look-label,.section-count{font-size:14px;font-weight:700;letter-spacing:1.8px;color:var(--muted)}.home-weather-title{margin:4px 0 28px}.home-weather{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--border);background:#fff}.wx-city{padding:24px 30px}.wx-city+.wx-city{border-left:1px solid var(--border)}.wx-name{font-size:17px;font-weight:700}.wx-temp{font-size:84px;font-weight:800;line-height:1.2;letter-spacing:-4px}.wx-temp sup{font-size:28px;vertical-align:top;position:relative;top:12px;letter-spacing:0}.wx-minmax{font-size:16px;margin-top:8px}.home-guide{font-size:18px;margin:18px 0 40px}.recommendations{border-top:1px solid var(--border);padding-top:40px}.rec-heading{display:flex;justify-content:space-between;align-items:end;gap:16px;margin:3px 0 24px}.rec-subtitle{font-size:16px;color:var(--muted);white-space:nowrap}.rec-subtitle b{color:var(--text)}.home-look-layout{display:grid;grid-template-columns:1.35fr 1fr;gap:32px;align-items:start}.style-board{background:#fff;border:1px solid var(--border)}.style-board h2{font-size:18px;letter-spacing:2px;padding:22px 26px;border-bottom:1px solid var(--border)}.board-canvas{position:relative;height:560px;max-width:600px;margin:24px auto}.board-item{position:absolute}.board-item img{width:100%;max-height:280px;object-fit:contain;display:block;cursor:zoom-in}.board-outer{top:0;left:8%;width:42%}.board-top{top:4%;left:52%;width:32%}.board-bottom{top:48%;left:18%;width:44%}.board-acc{top:52%;right:6%;width:18%}.board-acc2{top:68%;right:8%;width:15%}.board-looknum{text-align:center;color:var(--muted);font-size:13px;letter-spacing:2px;padding:16px;border-top:1px solid var(--border)}.select-look-label{margin:0 0 14px}.rec-cards{display:grid;gap:14px}.rec-card{position:relative;display:grid;grid-template-columns:110px 1fr;align-items:center;gap:20px;background:#fff;border:1px solid var(--border);padding:20px;text-align:left;width:100%}.rec-card.selected{background:#f5f0ef;border-color:#171717}.rec-card.selected:after{content:"";width:10px;height:10px;position:absolute;right:16px;top:16px;background:#b69a90;border-radius:50%}.rec-num{font-size:13px;letter-spacing:1px;color:var(--muted)}.rec-imgs{display:grid;grid-template-columns:1fr 1fr;gap:2px}.rec-imgs img{width:100%;aspect-ratio:1;object-fit:contain}.rec-concept{font-size:20px;font-weight:700;margin-top:5px}.outfits-header{margin-bottom:22px}.outfits-guide,.wardrobe-guide,.section-guide{color:var(--muted);font-size:18px;margin-top:12px}.filter-bar{display:flex;gap:12px;flex-wrap:wrap;margin:24px 0 18px}.filter-bar button{background:white;border:2px solid #171717;border-radius:2px;padding:14px 22px;font-size:18px;font-weight:700;color:#171717}.filter-bar button.active{background:#171717;color:white}.filter-bar.secondary{margin-top:0}.filter-bar.secondary button{background:#f1f1ee;border-color:#b9b9b1;color:#74746e}.filter-bar.secondary button.active{background:#898983;color:white;border-color:#898983}.look-grid{display:flex;flex-direction:column;gap:18px}.temperature-section{margin-top:20px}.temperature-heading{background:white;display:flex;align-items:center;gap:12px;padding:16px 0;margin-bottom:18px;border-bottom:1px solid #171717}.temperature-heading h3{font-size:24px}.temperature-heading .count{margin-left:auto;font-size:14px;background:#f1f1ef;padding:6px 14px;margin-right:20px;font-weight:700}.look-card{background:#fff;border:1px solid var(--border);padding:24px}.look-topline{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}.palette{display:flex;gap:8px;flex-wrap:wrap}.color-chip{font-size:15px;font-weight:700;background:#f1f1ef;border:1px solid var(--border);padding:5px 8px;border-radius:2px}.color-chip small{color:var(--muted);font-weight:700;margin-right:7px}.color-dot{display:inline-block;width:13px;height:13px;border:1px solid #0002;border-radius:50%;vertical-align:middle;background:var(--swatch);margin:0 4px}.color-chip .color-dot{width:21px;height:21px;margin-right:7px}.temp-badge{font-weight:700;color:#935318;background:#fff5e1;border:1px solid #f1d393;padding:6px 14px;white-space:nowrap}.look-items{display:flex;gap:16px;flex-wrap:wrap;align-items:start}.look-ref,.look-items .item-card{width:224px;flex-shrink:0;text-align:center}.look-ref .image-wrap{position:relative}.look-ref img{width:100%;aspect-ratio:1;object-fit:cover;border:1px solid var(--border);cursor:zoom-in}.ref-badge{position:absolute;top:10px;left:10px;background:#171717;color:white;font-size:11px;font-weight:700;letter-spacing:1px;padding:2px 8px}.look-ref p{font-size:15px;font-weight:700}.item-card{min-width:0}.item-image{display:block;width:100%;border:0;background:white;cursor:zoom-in}.item-image img{width:100%;aspect-ratio:1;object-fit:contain;display:block}.look-items .item-image{border:1px solid var(--border)}.item-info{padding:10px 0;font-size:14px}.item-info .brand{margin:5px 0 2px}.item-info .detail{color:var(--muted)}.item-info .item-title{font-weight:700;font-size:16px}.look-title{font-size:24px;font-weight:800;margin-top:20px}.look-note{font-size:18px;color:var(--muted);margin-top:8px}.look-tags{display:flex;gap:8px;margin:16px 0}.look-tags span{background:#efe9e5;padding:6px 12px;font-size:15px;font-weight:700}.look-tags span:first-child{background:#efefec;color:var(--muted)}.look-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.btn-board,.btn-delete{padding:12px;font-size:16px;font-weight:700;border:2px solid #171717;border-radius:2px;background:#f1f1ef}.btn-delete{color:var(--danger);border-color:var(--danger);background:#fff6f7}.wardrobe-count{font-size:16px;color:var(--muted);margin:16px 0}.wardrobe-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}.wardrobe-grid .item-card{background:#fff;border:1px solid var(--border);border-radius:2px;overflow:hidden}.wardrobe-grid .item-info{padding:12px 14px 16px;border-top:1px dashed #171717}.wardrobe-grid .category-name{font-size:20px;font-weight:800;line-height:1.4;margin:4px 0 8px}.wardrobe-grid .detail{color:#171717}.section-heading{display:flex;justify-content:space-between;align-items:end;border-bottom:1px solid #171717;padding-bottom:22px;margin-bottom:28px;gap:16px}.section-count{white-space:nowrap}.record-form{display:grid;grid-template-columns:1fr 1.4fr 100px;align-items:end;gap:16px;background:#fff;border:1px solid var(--border);padding:24px;margin-bottom:44px}.record-form label{font-size:16px;font-weight:700;display:block;margin-bottom:5px}.record-form input,.record-form select{width:100%;height:64px;background:#f7f7f5;border:1px solid #b9b9b1;padding:12px 18px;font-size:20px;color:#171717}.btn-primary{background:#171717;color:#fff;border:0;height:64px;font-size:18px;font-weight:700}.record-list{display:flex;flex-direction:column;gap:12px;border-top:1px solid #171717;padding-top:6px}.record-item{background:#fff;border:1px solid var(--border);padding:20px;display:flex;justify-content:space-between;align-items:center;gap:12px}.meta{color:var(--muted);font-size:14px}.btn-small{background:#fff;border:1px solid var(--border);padding:6px 12px;font-size:13px}.empty{padding:40px 0;border-bottom:1px solid var(--border);color:var(--muted);font-size:18px}.empty strong{display:block;color:#171717;font-size:21px;margin-bottom:10px}.page-note{text-align:center;font-size:18px;font-style:italic;margin-top:90px}.ref-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:44px 22px}.ref-card{min-width:0}.ref-card img{display:block;width:100%;aspect-ratio:3/5;object-fit:cover;border:1px solid var(--border);background:#f1f1ef;cursor:zoom-in}.ref-card img[hidden]{display:none}.ref-missing{aspect-ratio:3/5;display:flex;align-items:center;justify-content:center;background:#f1f1ef;border:1px solid var(--border);color:var(--muted);font-size:14px;text-align:center;padding:20px}.ref-missing[hidden]{display:none}.ref-info{font-size:16px;padding-top:14px}.ref-info .ref-line{display:grid;grid-template-columns:78px 1fr;gap:6px;margin-bottom:6px}.ref-info .ref-line b{font-weight:700}.ref-info .ref-line span{color:var(--muted)}.ref-info .hl,.section-guide .hl{color:var(--danger);font-weight:700}.ref-info .hl{margin-top:8px;text-decoration:underline;text-underline-offset:3px}.lightbox{display:none;position:fixed;inset:0;background:#000d;z-index:9999;align-items:center;justify-content:center;cursor:zoom-out;padding:24px;flex-direction:column;gap:14px}.lightbox.open{display:flex}.lightbox img{max-width:92vw;max-height:72vh;object-fit:contain}.lb-caption{color:#fff;font-size:16px;text-align:center;max-width:900px;white-space:pre-line}.lb-close{position:absolute;top:18px;right:24px;background:none;color:white;font-size:32px;border:0}
+@media(min-width:1200px){main{padding-left:6px;padding-right:6px}}@media(max-width:900px){main{padding:32px 20px 60px}.home-look-layout{grid-template-columns:1.2fr 1fr;gap:20px}.board-canvas{height:460px}.rec-card{grid-template-columns:80px 1fr;gap:12px;padding:16px}.rec-concept{font-size:17px}.look-ref,.look-items .item-card{width:180px}.ref-info{font-size:14px}.ref-info .ref-line{grid-template-columns:1fr;gap:0}.filter-bar button{font-size:16px;padding:12px 18px}}
+@media(max-width:640px){.header-inner{height:64px}.logo{font-size:24px}.header-back{left:12px}.header-menu{right:16px;top:12px}nav.tabs{height:80px}nav.tabs button{font-size:11px;gap:3px}nav.tabs svg{width:23px;height:23px}nav.tabs button.active:after{bottom:8px;width:22px}main{padding:28px 16px 60px}h2,.home-weather-title,.rec-section-title{font-size:29px}.home-weather-title{margin-bottom:20px}.wx-city{padding:18px 14px}.wx-name{font-size:14px}.wx-temp{font-size:56px;letter-spacing:-2px}.wx-temp sup{font-size:20px;top:8px}.wx-minmax{font-size:12px}.home-guide,.outfits-guide,.wardrobe-guide,.section-guide{font-size:15px}.home-guide{margin-bottom:28px}.recommendations{padding-top:28px}.rec-heading{align-items:start;flex-direction:column;gap:8px}.rec-subtitle{font-size:14px}.home-look-layout{display:flex;flex-direction:column;gap:24px}.style-board,.look-selector{width:100%}.board-canvas{height:460px}.rec-cards{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.rec-card{display:flex;flex-direction:column;align-items:stretch;padding:12px 8px;gap:8px}.rec-concept{font-size:13px}.rec-num{font-size:11px}.rec-card.selected:after{right:6px;top:6px;width:6px;height:6px}.filter-bar{gap:8px;margin-top:20px}.filter-bar button{font-size:14px;padding:10px 14px}.wardrobe-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.wardrobe-grid .item-info{padding:10px;font-size:12px}.wardrobe-grid .category-name{font-size:17px}.item-info .item-title{font-size:14px}.look-card{padding:16px}.look-topline{align-items:start}.color-chip{font-size:12px;padding:4px}.color-chip .color-dot{width:14px;height:14px}.temp-badge{font-size:12px;padding:5px 8px}.look-items{gap:12px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.look-ref,.look-items .item-card{width:100%}.look-title{font-size:21px}.look-note{font-size:15px}.look-actions button{font-size:14px}.temperature-heading h3{font-size:21px}.temperature-heading .count{margin-right:10px}.record-form{grid-template-columns:1fr;padding:16px;gap:14px}.record-form input,.record-form select,.btn-primary{height:52px;font-size:16px}.section-heading{align-items:start}.section-count{font-size:12px}.record-item{font-size:14px}.empty{font-size:15px}.page-note{font-size:15px;margin-top:60px}.ref-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 14px}.ref-info{font-size:13px}.home-date,.curated-label,.select-look-label{font-size:12px}}
+
+.wardrobe-toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px}.wardrobe-toolbar label{font-size:14px;color:var(--muted);margin-right:8px}.wardrobe-toolbar select{border:1px solid var(--border);background:white;padding:8px 12px;color:var(--text)}.sort-guide,.ref-move-note{font-size:14px;color:var(--muted);margin:0 0 20px}.filter-bar small{font-size:12px;font-weight:500;margin-left:4px;opacity:.7}.ref-owned{display:inline;border:0;padding:0;background:none;color:var(--danger);font:inherit;font-weight:800;text-align:left;line-height:inherit}.ref-owned:hover{text-decoration:underline;text-underline-offset:3px}.ref-info .ref-line .match-difference{color:var(--muted);font-size:12px;font-weight:400;margin-left:4px}.ref-id{margin-top:12px}.copy-id{font-size:12px;letter-spacing:0;background:#fff}.look-reference-meta{font-size:14px;margin-top:16px;border-top:1px solid var(--border);padding-top:12px}.look-reference-meta summary{cursor:pointer;color:var(--muted)}.look-reference-meta .ref-info{max-width:760px;font-size:14px}.board-looknum{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;letter-spacing:0}.style-board{scroll-margin-top:200px}@media(max-width:640px){.wardrobe-toolbar{align-items:center}.wardrobe-toolbar select{padding:8px;font-size:14px}.wardrobe-toolbar .wardrobe-count{font-size:13px}.filter-bar button{padding:10px 12px}.sort-guide{font-size:12px}.style-board{scroll-margin-top:155px}.match-difference{display:inline}}
+
+/* Normalize garment occupancy without stretching or changing original assets. */
+.item-image{position:relative;aspect-ratio:1;overflow:hidden}
+.item-image img{position:absolute;aspect-ratio:auto;max-width:none;object-fit:contain}
+.item-info .category-name{font-size:17px;font-weight:800;line-height:1.4;min-height:2.8em;margin:6px 0 10px}
+.wardrobe-grid .category-name{font-size:17px;min-height:2.8em}
+.item-info .item-title{font-size:13px;color:var(--muted)}
+.item-meta{display:grid;grid-template-columns:46px minmax(0,1fr);gap:4px 8px;text-align:left;font-size:13px;line-height:1.5}
+.item-meta dt{color:var(--muted);font-weight:400}.item-meta dd{margin:0;overflow-wrap:anywhere}
+.item-meta .brand-value{min-height:3em}
+.header-inner{height:60px}.logo{font-size:24px}.header-menu{top:10px}nav.tabs{height:68px}nav.tabs button{font-size:13px}nav.tabs svg{width:22px;height:22px}nav.tabs button.active:after{bottom:7px}main{padding-top:28px}h2,.rec-section-title{font-size:30px}.home-weather-title{font-size:16px;letter-spacing:0;display:flex;align-items:center;justify-content:space-between;margin:8px 0}.home-weather-title select{font-size:13px;padding:6px}.home-weather{display:flex}.wx-city{padding:12px 18px;flex:1}.wx-name{display:inline;font-size:14px}.wx-temp{display:inline;font-size:25px;letter-spacing:0;margin-left:12px}.wx-temp sup{font-size:16px;top:0}.wx-minmax{font-size:12px;margin-top:3px}.home-guide{font-size:14px;margin:10px 0 22px}.recommendations{padding-top:20px}.rec-heading{margin-bottom:16px}.board-canvas{height:400px;margin:12px auto}.board-item .garment-image{aspect-ratio:1;position:relative;overflow:hidden}.garment-image img{position:absolute;max-height:none;max-width:none;object-fit:contain}.board-bottom{top:43%;left:16%;width:43%}.board-acc{top:50%;right:5%;width:22%}.board-acc2{top:74%;right:9%;width:15%}.board-looknum{letter-spacing:0;color:var(--text)}.board-looknum strong{display:block;font-size:19px}.recommendation-reason{font-size:13px;margin:8px 0}.panel-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.panel-actions button{padding:9px 12px}.wardrobe-grid .item-info{padding:12px}.item-info .category-name,.wardrobe-grid .category-name{min-height:0;font-size:16px;margin:4px 0}.item-info .brand{font-size:12px;color:var(--muted);margin:4px 0;min-height:1.6em}.item-info .detail{font-size:12px}.item-info .item-title{font-size:12px}.search-input{width:100%;padding:12px;border:1px solid #bbb;background:white;margin:12px 0 18px}.look-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.look-card{padding:18px}.look-title{font-size:21px;margin:0 0 8px}.look-tags{margin:0 0 12px;align-items:center}.look-tags span{font-size:12px;padding:3px 7px}.look-composition{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;background:#fafaf8;padding:10px}.look-composition .mini-item{min-width:0}.mini-item .item-image{background:transparent}.mini-item p{font-size:11px;text-align:center;line-height:1.4}.look-note{font-size:14px;margin:12px 0}.look-actions{display:flex;gap:8px}.look-actions button{flex:1;font-size:14px;padding:9px}.look-topline{margin:0}.look-more{margin-left:auto;position:relative}.look-more summary{cursor:pointer}.look-more button{position:absolute;right:0;z-index:2;min-width:100px;padding:8px;background:#fff;color:var(--danger);border:1px solid #ccc}.temp-badge{font-size:12px;padding:3px 7px}.panel-mode{cursor:default;overflow:auto;justify-content:flex-start;padding:55px 18px 24px}.panel-mode>.lb-caption{color:var(--text);text-align:left;white-space:normal;background:white;width:min(850px,100%);padding:24px;border-radius:8px}.panel-mode>.lb-close{position:fixed}.panel-mode>#lightbox-img{display:none}.detail-image{max-height:350px;width:100%;object-fit:contain;background:#fafaf8}.detail-meta{display:grid;grid-template-columns:80px 1fr;gap:8px;margin:20px 0;font-size:14px}.detail-meta dt{color:var(--muted)}.detail-meta dd{margin:0}.detail-section{margin-top:22px}.detail-section h3{font-size:17px;margin-bottom:10px}.detail-section p{font-size:14px}.detail-reference{max-width:230px;width:100%;max-height:320px;object-fit:contain}.detail-link{display:block;margin:8px 0;padding:8px 12px;border:1px solid #bbb;background:white;text-align:left}.backup-tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12px;margin:10px 0 22px}.record-preview .look-composition{max-width:420px}.record-preview h3{font-size:16px}.record-item{align-items:start}.record-thumbnail{width:140px;flex-shrink:0}.record-content{flex:1;min-width:0}.record-content h3{font-size:16px}.record-content p{font-size:13px}.match-state{font-size:10px;border:1px solid currentColor;border-radius:3px;padding:0 3px;margin-left:4px;font-weight:500}.ref-info .ref-line{grid-template-columns:65px 1fr;font-size:13px}.ref-grid{gap:28px 18px}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#171717;color:white;padding:12px 18px;z-index:10001;display:flex;gap:12px;align-items:center;font-size:13px}.toast button{border:0;background:white;padding:4px 8px}.detail-subtext{color:var(--muted);font-size:13px}.record-form{padding:18px;grid-template-columns:1fr 2fr 90px}.record-form input,.record-form select,.record-form .btn-primary{height:46px;font-size:15px}.ref-move-note{font-size:13px}.filter-bar{gap:8px;margin:18px 0}.filter-bar button{font-size:14px;padding:8px 13px}.section-guide,.outfits-guide,.wardrobe-guide{font-size:15px}.section-heading{margin-bottom:18px;padding-bottom:16px}
+@media(max-width:640px){.header-inner{height:50px}.header-menu{top:5px}.logo{font-size:21px}nav.tabs{height:60px}nav.tabs button{font-size:10px}.look-grid{grid-template-columns:1fr}.home-look-layout{display:flex;flex-direction:column;gap:16px}.style-board,.look-selector{width:100%}.board-canvas{height:330px}.home-weather-title{font-size:14px}.wx-city{padding:9px}.wx-temp{font-size:23px}.wx-minmax{font-size:10px}.rec-subtitle{font-size:12px;white-space:normal}.rec-cards{grid-template-columns:1fr 1fr}.rec-card{display:block;padding:10px}.rec-imgs{max-width:85px}.rec-concept{font-size:13px}.record-form{grid-template-columns:1fr;gap:8px}.record-thumbnail{width:95px}.panel-mode>.lb-caption{padding:16px}.panel-mode .item-info{font-size:12px}main{padding:20px 16px 50px}.wardrobe-grid{gap:10px}.wardrobe-grid .category-name{font-size:14px}.wardrobe-grid .item-info{padding:9px}.ref-info .ref-line{grid-template-columns:1fr;gap:0}.ref-info{font-size:12px}.section-count{font-size:11px}.home-weather{grid-template-columns:1fr 1fr}}
+.look-composition{grid-template-columns:repeat(var(--item-count,4),minmax(0,1fr))}.rec-imgs .item-image{cursor:inherit}.rec-imgs .item-image img{aspect-ratio:auto}.record-thumbnail .look-composition{grid-template-columns:repeat(2,minmax(0,1fr));padding:0;gap:2px}.record-thumbnail .mini-item p{display:none}.panel-actions{justify-content:center}.detail-section .panel-actions{justify-content:flex-start}.record-form .btn-small{margin-top:6px}
+@media(max-width:640px){.look-composition{grid-template-columns:repeat(2,minmax(0,1fr))}.panel-mode .look-composition{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.board-item .item-image{background:transparent}.board-canvas{height:460px}.board-bottom{top:50%}.board-acc{top:53%}@media(max-width:640px){.board-canvas{height:350px}}
+.look-grid,.ref-grid{align-items:stretch}.look-card,.ref-card{display:flex;flex-direction:column;height:100%}.card-footer{margin-top:auto;padding-top:14px}.card-footer .detail-subtext{margin-bottom:6px}.look-actions{align-items:center}.look-actions .look-more{margin-left:0;flex:0 0 32px;align-self:stretch;display:flex;align-items:center;justify-content:center}.look-more summary{list-style:none}.look-more summary::-webkit-details-marker{display:none}.look-more button{bottom:100%;top:auto}.ref-actions{display:flex;flex-direction:column;gap:8px}.ref-actions .detail-link,.ref-actions .ref-id{margin:0;width:100%;min-height:40px}.record-item>.btn-small{align-self:flex-end}
+.look-composition{display:flex;justify-content:center;align-items:flex-start;gap:12px;flex-wrap:wrap;height:240px;padding:12px;overflow:hidden}.look-composition .mini-item{flex:0 0 calc((100% - 36px)/4);width:calc((100% - 36px)/4);max-width:160px}.look-composition .mini-item p{min-height:34px;margin-top:5px}.record-thumbnail .look-composition{height:auto;gap:2px;padding:0}.record-thumbnail .mini-item{flex-basis:calc((100% - 2px)/2);width:calc((100% - 2px)/2)}@media(max-width:640px){.look-composition,.panel-mode .look-composition{height:400px;align-content:flex-start;gap:12px}.look-composition .mini-item{flex-basis:calc((100% - 12px)/2);width:calc((100% - 12px)/2);max-width:130px}.record-thumbnail .look-composition{height:auto;gap:2px}.record-thumbnail .mini-item{flex-basis:calc((100% - 2px)/2);width:calc((100% - 2px)/2)}}
+.fit-status{font-size:11px;color:#7d6025;border:1px solid #d7c595;background:#fff9ea;padding:3px 7px}.look-tags{min-height:28px}\n.warm-control{display:flex;gap:8px;align-items:center;font-size:13px;margin:12px 0;color:var(--text)}.warm-control input{width:17px;height:17px;accent-color:#171717}\n.temperature-groups{display:flex;flex-direction:column;gap:28px}.temperature-groups .temperature-section{margin:0}.temperature-heading{padding:14px 0;margin-bottom:12px}.temperature-heading h3{font-size:22px}.temperature-seasons{margin:0 0 16px}.temperature-groups .empty{grid-column:1 / -1}\n
+.record-content{flex:1;min-width:0}.record-weather{color:var(--muted);font-size:13px;margin:8px 0}.record-item{align-items:stretch}.record-item>.btn-small{align-self:flex-end}
+
+.record-edit-list{max-height:55vh;overflow-y:auto;text-align:left}.private-tools{margin:0 0 24px;flex-wrap:wrap}.private-tools span{flex:1;min-width:220px}.private-tools label{cursor:pointer}.private-tools button,.private-tools label{white-space:nowrap}
+
+.look-composition{height:auto;min-height:240px;overflow:visible}.board-canvas.expanded{height:auto;min-height:460px}@media(max-width:640px){.look-composition{height:auto;min-height:400px}.board-canvas.expanded{min-height:350px}}
+</style>
+</head>
+<body>
+<header><div class="header-inner"><button class="header-back" aria-label="홈으로 돌아가기" onclick="switchTab('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 3-9 9 9 9"/></svg></button><div class="logo">코디 보드</div><details class="header-menu"><summary aria-label="더 보기">•••</summary><div class="menu-content"><div id="weather">날씨 불러오는 중...</div><a href="https://github.com/chloepsh93-web/codi-board">GitHub 저장소</a></div></details></div><nav class="tabs" aria-label="주 메뉴"><button class="active" data-tab="home" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10 12 3l9 7v11h-6v-7H9v7H3Z"/></svg><span>홈</span></button><button class="" data-tab="outfits" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 5a2 2 0 1 1 3 2v3l8 6v4H3v-4l10-6M3 16h18"/></svg><span>코디 조합</span></button><button class="" data-tab="wardrobe" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="2" width="18" height="20" rx="1"/><path d="M12 2v20M8 12h1m6 0h1"/></svg><span>옷장</span></button><button class="" data-tab="records" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="17" rx="1"/><path d="M6 2v6m12-6v6M2 11h20"/></svg><span>기록</span></button><button class="" data-tab="refs" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="3" width="20" height="18" rx="1"/><path d="m4 18 6-7 4 4 3-3 4 6"/><circle cx="7" cy="8" r="1"/></svg><span>스타일 레퍼런스</span></button></nav></header>
+<main>
+ <div class="backup-tools private-tools"><span id="private-data-status" role="status">개인 옷장 파일을 불러와주세요. 데이터는 이 브라우저에만 저장됩니다.</span><label class="btn-small" for="private-import">개인 파일 불러오기</label><input type="file" id="private-import" accept="application/json,.json" onchange="importPrivateData(this)" hidden><button class="btn-small" onclick="exportPrivateData()">전체 백업</button></div>
+  <section id="tab-home" class="tab-panel active">
+    <div class="home-date" id="home-date"></div>
+    <div class="home-weather-title">오늘의 날씨 <select aria-label="추천 기준" id="weather-basis" onchange="renderHome()"><option value="current">현재 기온</option><option value="daily">오늘 최저·최고</option></select></div>
+    <div class="home-weather" id="home-weather"></div>
+    <p class="home-guide">오늘 날씨에 맞는 코디를 추천해드려요.</p>
+    <div class="recommendations"><div class="curated-label">내 옷으로 입는 오늘</div>
+    <div class="rec-heading"><h2 class="rec-section-title">오늘의 코디 추천</h2><div class="rec-subtitle" id="rec-subtitle"></div></div>
+    <div class="home-look-layout"><div class="style-board" id="style-board"><h2>추천 코디</h2><div class="board-canvas" id="board-canvas"></div><div class="board-looknum" id="board-looknum"></div></div>
+    <div class="look-selector"><div class="select-look-label">다른 추천</div><div class="rec-cards" id="rec-cards"></div></div></div></div>
+  </section>
+  <section id="tab-outfits" class="tab-panel">
+    <div class="outfits-header">
+      <h2 class="outfits-title">오늘 뭐 입지?</h2>
+      <p class="outfits-guide">봄·여름·가을·겨울 탭에서 코디를 확인하세요.</p>
+    </div>
+    <div id="outfit-list"></div>
+  </section>
+  <section id="tab-wardrobe" class="tab-panel">
+    <h2 class="wardrobe-title">내 옷장</h2>
+    <p class="wardrobe-guide" id="wardrobe-guide"></p><div class="filter-bar" id="wardrobe-filter" aria-label="옷 분류"></div><div class="filter-bar secondary" id="wardrobe-subfilter" aria-label="옷 세부 분류"></div><div class="wardrobe-toolbar"><div class="wardrobe-count" id="wardrobe-count"></div><div><label for="wardrobe-sort">정렬</label><select id="wardrobe-sort" onchange="setWardrobeSort(this.value)"><option value="color">색상순</option><option value="length">길이순</option></select></div></div><p id="sort-guide" class="sort-guide"></p>
+    <input class="search-input" id="wardrobe-search" aria-label="옷 검색" placeholder="옷 번호 · 이름 · 브랜드 검색" oninput="renderWardrobe()"><div class="wardrobe-grid" id="wardrobe-grid"></div>
+  </section>
+  <section id="tab-records" class="tab-panel">
+    <div class="section-heading"><div><h2 class="records-title">기록</h2><p class="section-guide">실제로 입은 LOOK과 아이템 조합을 날짜별로 남겨보세요.</p></div><div class="section-count" id="record-count"></div></div>
+    <div class="record-form">
+      <div><label for="rec-date">입은 날짜</label><input type="date" id="rec-date"></div><div><label for="rec-look">LOOK 선택</label><select id="rec-look" onchange="renderRecordPreview()"></select></div><button class="btn-primary" onclick="saveRecord()">저장</button>
+    </div>
+    <div id="record-preview"></div><div class="backup-tools"><button class="btn-small" onclick="editRecordItems()">입은 옷 변경</button><span id="rec-items-summary"></span></div><label for="rec-note">착용 메모</label><input class="search-input" id="rec-note" maxlength="300" placeholder="예: 저녁에는 조금 추웠어요"><div class="backup-tools"><span>기록은 이 브라우저에 저장됩니다. 날짜별 기온은 인천 기준 일 최저·최고 기온(날씨 모델)이며 코디 조합에도 표시됩니다.</span><button class="btn-small" onclick="exportRecords()">기록 내보내기</button><label class="btn-small" for="record-import">가져오기</label><input type="file" id="record-import" accept="application/json,.json" onchange="importRecords(this)" hidden></div><div class="record-list" id="record-list"></div>
+  </section>
+  <section id="tab-refs" class="tab-panel">
+    <div class="section-heading"><div><h2 class="refs-title">스타일 레퍼런스</h2><p class="section-guide"><span class="hl">굵은 컬러 글씨</span>는 연결한 보유품이에요. 대체 가능한 옷은 태그로 표시합니다.</p></div><div class="section-count" id="ref-count"></div></div>
+    <div id="ref-filter" class="filter-bar" aria-label="레퍼런스 연결 상태"></div><p id="ref-move-note" class="ref-move-note"></p><div class="ref-grid" id="ref-grid"></div>
+  </section>
+</main>
+<script>
+// Personal data is loaded from this browser, never embedded in the public build.
+let WARDROBE = [];
+let LOOKS = [];
+let STYLE_REFS = [];
+let IMG_MAP = {}; // 옷장 ID -> webp 파일명
+function imgUrl(id) {
+  const f = IMG_MAP[id.toUpperCase()];
+  return f ? assetUrl('images/' + f) : '';
+}
+
+// ===== 탭 전환 =====
+function switchTab(name) {
+  document.querySelectorAll('nav.tabs button').forEach(b => { const active = b.dataset.tab === name; b.classList.toggle('active', active); b.setAttribute('aria-pressed', active); });
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'tab-' + name));
+}
+document.querySelectorAll('nav.tabs button').forEach(btn => btn.addEventListener('click', () => switchTab(btn.dataset.tab)));
+
+// ===== 날씨 (open-meteo 직접 호출) =====
+async function loadWeather() {
+  const spots = [
+    {name: '인천', lat: 37.4563, lon: 126.7052},
+    {name: '서울', lat: 37.5665, lon: 126.9780}
+  ];
+  try {
+    const results = await Promise.all(spots.map(async s => {
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${s.lat}&longitude=${s.lon}&current=temperature_2m&daily=temperature_2m_max,temperature_2m_min&forecast_days=1&timezone=Asia%2FSeoul`;
+      const r = await fetch(url);
+      if (!r.ok) throw new Error("날씨 요청 실패");
+      const j = await r.json();
+      const cur = j.current.temperature_2m;
+      const max = j.daily.temperature_2m_max[0];
+      const min = j.daily.temperature_2m_min[0];
+      return {name: s.name, cur, max, min, updated: j.current.time.slice(11,16)};
+    }));
+    const html = results.map(r => `${r.name} <b>${r.cur}°C</b>`).join(' &nbsp;|&nbsp; ');
+    document.getElementById('weather').innerHTML = html;
+    // 홈 날씨 영역 (4-3: 현재 기온 크게, 최저최고 작게)
+    document.getElementById('home-weather').innerHTML = results.map(r =>
+      `<div class="wx-city"><div class="wx-name">${r.name}</div>` +
+      `<div class="wx-temp">${Math.round(r.cur)}<sup>°</sup></div>` +
+      `<div class="wx-minmax">${r.name} 기준 · 오늘 ${Math.round(r.min)}~${Math.round(r.max)}°C · ${r.updated} 업데이트</div></div>`
+    ).join('');
+    // 전역 저장 (보고용)
+    window._wx = results;
+    renderHome();
+  } catch(e) {
+    document.getElementById('weather').textContent = '날씨 정보 없음';
+    document.getElementById('home-weather').textContent='날씨를 불러오지 못했어요. 계절별 코디를 확인해주세요.';
+    window._wx = [];
+    renderHome();
+  }
+}
+
+// ===== 삭제 상태 (localStorage) =====
+// 기존 보드에서 삭제된 LOOK 초기값 (서버 board_preferences 기준)
+let SEED_DELETED = [];
+function getDeleted(){try{const raw=localStorage.getItem('codi_deleted');if(raw===null)return [...SEED_DELETED];const parsed=JSON.parse(raw);return Array.isArray(parsed)?parsed.filter(Number.isSafeInteger):[];}catch{return [];}}
+function isDeleted(num) {
+  return getDeleted().includes(num);
+}
+function itemById(id) {
+  return WARDROBE.find(w => w.id === id);
+}
+
+// 분류는 화면용 파생 정보다. 원본 ID와 옷장 데이터는 유지한다.
+const SEASONS = ['봄','여름','가을','겨울'];
+function getLookSeasons(l) {
+  const explicit=SEASONS.filter(x=>(l.season || '').includes(x));
+  if(explicit.length) return explicit;
+  const garments=l.items.map(itemById).filter(w=>w && !w.id.startsWith('A'));
+  const outer=garments.find(w=>w.category.startsWith('아우터/'));
+  const tags=w=>w.season.includes('사계절')?SEASONS:SEASONS.filter(x=>w.season.includes(x));
+  if(outer) return tags(outer);
+  return SEASONS.filter(x=>garments.length && garments.every(w=>tags(w).includes(x)));
+}
+function lookTitle(l) {
+  if(!/^[A-D]-\d+$/.test(l.title || '')) return l.title || '내 옷 코디';
+  const garments=l.items.map(itemById).filter(w=>w && !w.id.startsWith('A'));
+  const key=garments.filter(w=>w.category.startsWith('아우터/') || w.category.startsWith('원피스/'));
+  const basis=(key.length?key:garments).slice(0,1);
+  if(key.length>1) basis.push(key[1]);
+  const bottom=garments.find(w=>/^(바지|치마)\//.test(w.category));
+  const top=garments.find(w=>w.category.startsWith('상의/'));
+  if(bottom && !basis.includes(bottom)) basis.push(bottom);
+  else if(top && !basis.includes(top)) basis.push(top);
+  return basis.map(w=>`${w.color} ${categoryName(w)}`).join(' + ');
+}
+async function copyReference(label, button) {
+  try { await navigator.clipboard.writeText(label); button.textContent='복사 완료'; setTimeout(()=>button.textContent=label+' · 번호 복사',1600); }
+  catch(e) { button.textContent=label+' · 이 번호로 요청해주세요'; }
+}
+
+function colorSwatch(color) {
+  color=color.split(/[+\/(]/)[0];
+  const tones=[['아이보리','#f1e7ce'],['화이트','#fafafa'],['블랙','#292520'],['네이비','#303b5c'],['그레이지','#b9afa1'],['그레이','#a7a7a7'],['회색','#a7a7a7'],['차콜','#565656'],['베이지','#d6c09e'],['브라운','#76503b'],['카멜','#b88c57'],['오트밀','#d6ccb7'],['블루','#7897bb'],['소라','#a4c5df'],['청','#7897bb'],['그린','#607c55'],['카키','#777c53'],['머스타드','#c5a142'],['옐로우','#e3cb88'],['핑크','#dcb1bb'],['레드','#b44545'],['코랄','#d88678'],['러스트','#9c573b'],['버건디','#742d43'],['실버','#babbbc']];
+  return (tones.find(([name])=>color.includes(name)) || ['','#bbb'])[1];
+}
+function dot(w) { return `<span class="color-dot" style="--swatch:${colorSwatch(w.color)}" aria-label="${esc(w.color)}"></span>`; }
+function categoryName(w) {
+  if(w.display_name) return w.display_name; const c=w.category.split('/').pop(); return ({'워크블루종':'블루종','라이더 자켓':'레더재킷','A라인 롱스커트':'롱스커트'})[c] || c; }
+function material(w) {
+  const text=w.desc_short;
+  if(/메리노 울|램스울|(?:^|[ ,/])울(?:\s*\d|\s*혼방|\s*소재|$|,)/.test(text)) return '울';
+  if(/데님 소재|^데님[, ]/.test(text)) return '데님';
+  if(/가죽 소재|^가죽[, ]/.test(text)) return '가죽';
+  if(/^천 소재/.test(text)) return '천';
+  if(/코듀로이/.test(text)) return '코듀로이 디테일';
+  if(/니트/.test(text)) return '니트';
+  return '';
+}
+let IMAGE_LAYOUT = {};
+function showBoard(num) { homeState.selected=num; renderBoard(); document.querySelectorAll('.rec-card').forEach(c=>{const active=Number(c.dataset.look)===num;c.classList.toggle('selected',active);c.setAttribute('aria-pressed',active);}); switchTab('home'); document.getElementById('style-board').scrollIntoView({behavior:'smooth',block:'start'}); }
+
+// 확인한 보유 아이템 연결만 사용하고, 사진과 다른 부분은 본문에 표시한다.
+let REF_MATCHES = {};
+function refNumber(r) { return Number(r.file.match(/^ref-(\d+)/)[1]); }
+
+function transferredLook(r) {
+  // 이미 존재하는 LOOK 77/78도 이미지 경로로 연결. 삭제한 코디는 복원하지 않는다.
+  return LOOKS.find(l=>l.ref_img==='style-refs/'+r.file && !isDeleted(l.num) &&
+    l.items.some(id=>itemById(id)?.category.startsWith('상의/')) &&
+    l.items.some(id=>/^(치마|바지)\//.test(itemById(id)?.category || '')));
+}
+function referenceMeta(r) {
+  const matches=REF_MATCHES[refNumber(r)] || [];
+  return r.desc.replace(/\((?:가방 포인트|어깨 걸침|팔에 걸침|손에|머리 묶음|목|상의\+하의 일체)\)/g,'').split('|').map(part=>{
+    const [name,...value]=part.split(':'); let text=value.join(':').trim(); let html='';
+    while(text.length){
+      const candidates=matches.map(m=>({m,index:text.indexOf(m[0])})).filter(x=>x.index>=0).sort((a,b)=>a.index-b.index || b.m[0].length-a.m[0].length);
+      if(!candidates.length){html+=esc(text);break;}
+      const {m,index}=candidates[0];const w=itemById(m[1]);
+      html+=esc(text.slice(0,index))+`<button class="ref-owned" onclick="openItem('${m[1]}')" aria-label="${esc(m[0]+' · '+m[1]+' 상세 보기')}" title="${esc(m[1]+' · '+w.color+' '+categoryName(w))}">${esc(m[0])}${m[2]?'<span class="match-state">대체 가능</span>':''}${m[2]?``:''}</button>`;
+      text=text.slice(index+m[0].length);
+    }
+    return `<div class="ref-line"><b>${esc(name.trim())}:</b><span>${html}</span></div>`;
+  }).join('');
+}
+let outfitSeason=currentSeason();
+function setOutfitSeason(season){
+  if(!SEASONS.includes(season))return;
+  outfitSeason=season;renderOutfits();
+  document.getElementById('outfit-season-'+season)?.focus();
+}
+function renderOutfits(){
+  const visible=LOOKS.filter(l=>!isDeleted(l.num));
+  const list=visible.filter(l=>getLookSeasons(l).includes(outfitSeason));
+  const tabs=SEASONS.map(season=>{
+    const count=visible.filter(l=>getLookSeasons(l).includes(season)).length;
+    return `<button id="outfit-season-${season}" role="tab" aria-selected="${season===outfitSeason}" aria-controls="outfit-season-cards" class="${season===outfitSeason?'active':''}" onclick="setOutfitSeason('${season}')">${season} <small>${count}</small></button>`;
+  }).join('');
+  document.getElementById('outfit-list').innerHTML=`<div class="filter-bar" role="tablist" aria-label="코디 계절">${tabs}</div><div id="outfit-season-cards" role="tabpanel" aria-labelledby="outfit-season-${outfitSeason}" class="look-grid">${list.map(outfitCard).join('')||'<div class="empty">이 계절에 등록된 코디가 없습니다.</div>'}</div>`;
+  const sel=document.getElementById('rec-look');const previous=sel.value;
+  sel.innerHTML=visible.map(l=>`<option value="${l.num}">LOOK ${l.num} · ${esc(lookTitle(l))}</option>`).join('');
+  if(visible.some(l=>String(l.num)===previous))sel.value=previous;
+
+}
+
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ===== 옷장 렌더링 =====
+
+let wardrobeFilter='all', wardrobeSubfilter='all', wardrobeSort='color';
+const WARDROBE_CATEGORIES=['상의','아우터','바지','원피스/스커트','가방','모자','패션소품'];
+function wardrobeCategory(w) {
+  const [main,c]=w.category.split('/');
+  if(main==='악세잡화') return /백|짐색/.test(c)?'가방':/비니|볼캡/.test(c)?'모자':'패션소품';
+  if(main==='상의' && /가디건|후드집업|^집업$|셔츠자켓/.test(c)) return '아우터';
+  if(main==='원피스' && c==='점프슈트') return '바지';
+  if(main==='원피스' || main==='치마') return '원피스/스커트';
+  return main;
+}
+function subtype(w) {
+  const [main,c]=w.category.split('/');const category=wardrobeCategory(w);
+  if(category==='상의') {
+    if(c.includes('니트')||c.includes('스웨터')) return '니트/스웨터';
+    if(c.includes('폴로')||c.includes('피케')) return '피케/카라 티셔츠';
+    if(c==='후드') return '후드 티셔츠';
+    if(c.includes('셔츠')&&!c.includes('티셔츠')) return '셔츠/블라우스';
+    if(c.includes('민소매')||c.includes('캐미솔')) return '민소매 티셔츠';
+    if(c.includes('반소매')||c==='로고 티셔츠') return '반소매 티셔츠';
+    return '긴소매 티셔츠';
+  }
+  if(category==='아우터') {
+    if(c.includes('가디건')) return '카디건';
+    if(c==='후드집업') return '후드 집업';
+    if(c==='집업') return '트레이닝 재킷';
+    if(c.includes('셔츠자켓')) return '기타 아우터';
+    if(c.includes('블레이저')||c==='수트') return '슈트/블레이저 재킷';
+    if(c.includes('무스탕')) return '무스탕/퍼';
+    if(c.includes('라이더')) return '레더/라이더스 재킷';
+    if(c.includes('트러커')) return '트러커 재킷';
+    if(c.includes('블루종')) return '블루종/MA-1';
+    if(c.includes('스타디움')) return '스타디움 재킷';
+    if(c.includes('야상')) return '사파리/헌팅 재킷';
+    if(c.includes('조끼')) return '경량 패딩/패딩 베스트';
+    if(c.includes('롱패딩')) return '롱패딩/헤비 아우터';
+    if(c.includes('패딩')) return '숏패딩/헤비 아우터';
+    if(c.includes('코트')) {
+      if(!w.season.includes('겨울')||c.includes('트렌치')||c.includes('레인')) return '환절기 코트';
+      if(w.desc_short.includes('더블')) return '겨울 더블 코트';
+      if(c.includes('더플')||w.desc_short.includes('로브')) return '겨울 기타 코트';
+      return '겨울 싱글 코트';
+    }
+    return '기타 아우터';
+  }
+  if(category==='바지') {
+    if(c==='점프슈트') return '점프 슈트/오버올';
+    if(/쇼츠|숏팬츠/.test(c)) return '숏 팬츠';
+    if(/데님|진/.test(c)) return '데님 팬츠';
+    if(c==='슬랙스') return '슈트 팬츠/슬랙스';
+    if(c==='스웨트팬츠') return '트레이닝/조거 팬츠';
+    return '기타 하의';
+  }
+  if(category==='원피스/스커트') {
+    const length=garmentLength(w);
+    if(main==='치마') return length.rank===0?'미니스커트':length.rank===1?'미디스커트':length.rank===2?'롱스커트':'스커트 · 기장 미확인';
+    return c.includes('미니')?'미니원피스':c.includes('맥시')?'맥시원피스':'롱원피스';
+  }
+  return c;
+}
+function garmentLength(w) {
+  if(w.length==='미디') return {rank:1,label:'미디'};
+  if(w.length==='미니') return {rank:0,label:'미니'};
+  if(w.length==='롱') return {rank:2,label:'롱'};
+  const [main,c]=w.category.split('/');const text=c+' '+w.desc_short;
+  if(/숏|쇼츠|미니|짧은 기장|크롭|반바지/.test(text)) return {rank:0,label:'짧은 기장'};
+  if(/맥시|롱/.test(c)) return {rank:2,label:'긴 기장'};
+  if(/미디|무릎 아래|엉덩이 (?:덮는|기장)|하프|반코트/.test(text)) return {rank:1,label:'중간 기장'};
+  // 수치만 있는 총장, 소매 길이, 품목명만 있는 바지는 임의로 기장을 판단하지 않는다.
+  return {rank:3,label:'기장 미확인'};
+}
+function colorRank(w) {
+  const c=w.color.split(/[+\/(]/)[0];
+  const ranks=[[/화이트/,0],[/아이보리|오트밀/,1],[/베이지|그레이지/,2],[/옐로우|머스타드/,3],[/러스트|코랄/,4],[/핑크/,5],[/레드|버건디/,6],[/그린|카키/,7],[/소라|스카이|라이트블루|삭스블루/,8],[/연청/,9],[/블루|청/,10],[/네이비/,11],[/카멜|브라운|모카/,12],[/그레이|회색|실버/,13],[/차콜/,14],[/블랙|검정/,15]];
+  return (ranks.find(([re])=>re.test(c)) || [null,16])[1];
+}
+function renderWardrobe() {
+  document.getElementById('wardrobe-guide').textContent=`옷장에 등록된 옷 ${WARDROBE.length}벌이에요. 눌러보시면 상세 정보가 나와요.`;
+  document.getElementById('wardrobe-filter').innerHTML=['all',...WARDROBE_CATEGORIES].map(c=>`<button class="${c===wardrobeFilter?'active':''}" aria-pressed="${c===wardrobeFilter}" onclick="setFilter('${c}')">${c==='all'?'전체':c}</button>`).join('');
+  const categoryList=WARDROBE.filter(w=>wardrobeFilter==='all'||wardrobeCategory(w)===wardrobeFilter);
+  const subtypes=[...new Set(categoryList.map(subtype))];
+  document.getElementById('wardrobe-subfilter').innerHTML=wardrobeFilter==='all'?'':['all',...subtypes].map(c=>`<button class="${c===wardrobeSubfilter?'active':''}" aria-pressed="${c===wardrobeSubfilter}" onclick="setSubfilter('${c}')">${c==='all'?'전체 종류':esc(c)}</button>`).join('');
+  const query=document.getElementById('wardrobe-search').value.trim().toLocaleLowerCase();
+  const list=categoryList.filter(w=>(wardrobeSubfilter==='all'||subtype(w)===wardrobeSubfilter)&&(!query||[w.id,categoryName(w),w.brand_en,w.color].join(' ').toLocaleLowerCase().includes(query))).sort((a,b)=>{
+    if(wardrobeSort==='length') {
+      const category=WARDROBE_CATEGORIES.indexOf(wardrobeCategory(a))-WARDROBE_CATEGORIES.indexOf(wardrobeCategory(b));
+      return category || garmentLength(a).rank-garmentLength(b).rank || colorRank(a)-colorRank(b) || a.id.localeCompare(b.id);
+    }
+    return colorRank(a)-colorRank(b) || a.color.localeCompare(b.color,'ko') || garmentLength(a).rank-garmentLength(b).rank || a.id.localeCompare(b.id);
+  });
+  document.getElementById('wardrobe-count').textContent=wardrobeFilter==='all'?`총 ${WARDROBE.length}벌 · 현재 표시 ${list.length}벌`:`${wardrobeFilter}${wardrobeSubfilter==='all'?'':' · '+wardrobeSubfilter} ${list.length}벌`;
+  document.getElementById('wardrobe-sort').value=wardrobeSort;
+  document.getElementById('sort-guide').textContent=wardrobeSort==='length'?'같은 분류 안에서 짧은 → 중간 → 긴 기장 순 · 기장 미확인 품목은 마지막에 표시':'밝은 무채색 → 색상 계열 → 어두운 무채색 순';
+  document.getElementById('wardrobe-grid').innerHTML=list.map(w=>itemCard(w,true)).join('');
+}
+function setFilter(c) { wardrobeFilter=c; wardrobeSubfilter='all'; renderWardrobe(); }
+function setSubfilter(c) { wardrobeSubfilter=c; renderWardrobe(); }
+function setWardrobeSort(value) { wardrobeSort=value; renderWardrobe(); }
+
+// ===== 기록 (localStorage) =====
+const MONTH_AVG = [-3, -1, 5, 12, 18, 23, 26, 26, 21, 18, 7, 0];
+let homeState = { temp: null, wxFailed: false, selected: null };
+
+function getHomeTemp() {
+  if (window._wx && window._wx.length) {
+    // 인천 기준
+    return window._wx[0].cur;
+  }
+  const m = new Date().getMonth();
+  return MONTH_AVG[m];
+}
+
+function selectHomeLook(num) {
+  homeState.selected = num;
+  document.querySelectorAll('.rec-card').forEach(c => {c.classList.remove('selected'); c.setAttribute('aria-pressed','false');});
+  const cards = document.querySelectorAll('.rec-card');
+  const recs = pickRecommendations(homeState.temp);
+  const idx = recs.findIndex(l => l.num === num);
+  if (idx >= 0 && cards[idx]) { cards[idx].classList.add('selected'); cards[idx].setAttribute('aria-pressed','true'); }
+  renderBoard();
+}
+
+function seasonText(w){return w.seasons.length===4?'사계절':w.seasons.join('·');}
+function garmentImage(w, extra='') {
+  const b=IMAGE_LAYOUT[w.id] || [84,84,8,8];const target=w.id.startsWith('A')?.70:.84;const f=target/.84;
+  const a=[b[0]*f,b[1]*f,50+(b[2]-50)*f,50+(b[3]-50)*f];
+  return `<button class="item-image ${extra}" aria-label="${esc(w.id+' '+categoryName(w)+' 상세 보기')}" onclick="openItem('${w.id}')"><img src="${imgUrl(w.id)}" style="width:${a[0]}%;height:${a[1]}%;left:${a[2]}%;top:${a[3]}%" alt="${esc(w.color+' '+categoryName(w))}" loading="lazy"></button>`;
+}
+function itemCard(w){return `<div class="item-card">${garmentImage(w)}<div class="item-info"><div class="category-name">${esc(categoryName(w))}</div><div class="brand">${esc(w.brand_en)}</div><div class="detail">${esc(w.color)} · ${esc(seasonText(w))}</div><div class="item-title">${esc(w.id)} ${dot(w)}</div></div></div>`;}
+function composition(l){return `<div class="look-composition" style="--item-count:${Math.min(4,l.items.length)}">${l.items.map(itemById).filter(Boolean).map(w=>`<div class="mini-item">${garmentImage(w)}<p>${esc(categoryName(w))}</p></div>`).join('')}</div>`;}
+function openPanel(html){window.detailTrigger=document.activeElement;const box=document.getElementById('lightbox');document.getElementById('lightbox-img').hidden=true;document.getElementById('lightbox-caption').innerHTML=html;box.classList.add('open','panel-mode');document.body.style.overflow='hidden';document.querySelector('.lb-close').focus();}
+function openItem(id){const w=itemById(id);if(!w)return;const length=garmentLength(w);const related=LOOKS.filter(l=>!isDeleted(l.num)&&l.items.includes(id));
+  const rows=[['분류',wardrobeCategory(w)+' / '+subtype(w)],['브랜드',w.brand_en||'미확인'],['색상',w.color],['패턴',w.pattern||'미확인'],['소재',w.material||'미확인'],['계절',seasonText(w)]];
+  if(!w.id.startsWith('A'))rows.push(['기장',length.label],['소매',w.sleeve||'미확인'],['핏',w.fit||'미확인'],['실루엣',w.silhouette||'미확인']);
+  openPanel(`<h2>${esc(categoryName(w))}</h2><p class="detail-subtext">${esc(w.id)}</p><img class="detail-image" src="${imgUrl(id)}" alt="${esc(categoryName(w))}"><dl class="detail-meta">${rows.map(([k,v])=>`<dt>${k}</dt><dd>${esc(v)}</dd>`).join('')}</dl><div class="detail-section"><h3>상세 설명</h3><p>${esc(w.desc_short)}</p></div><button class="btn-small" onclick="copyReference('${id}',this)">${id} · 번호 복사</button><div class="detail-section"><h3>이 옷을 사용한 코디</h3>${related.map(l=>`<button class="detail-link" onclick="openLook(${l.num})">LOOK ${l.num} · ${esc(lookTitle(l))}</button>`).join('')||'<p>연결된 코디가 없어요.</p>'}</div>`);}
+function lookSummary(l){const t=l.reason||l.note||'';return t.split(/(?<=[.!?。])\s/)[0]||'보유한 옷으로 구성한 코디예요.';}
+function temperatureText(l){if(Number.isFinite(l.temp_lo)&&Number.isFinite(l.temp_hi))return `${l.temp_lo}–${l.temp_hi}°C`;const w=cleanRecordWeather(l.worn_weather);return w?`${w.min}–${w.max}°C`:'';}
+function outfitCard(l){return `<article class="look-card" id="look-${l.num}"><div class="look-topline"><h3 class="look-title">${esc(lookTitle(l))}</h3></div><div class="look-tags">${getLookSeasons(l).map(x=>`<span>${x}</span>`).join('')}${temperatureText(l)?`<span class="temp-badge">${temperatureText(l)}</span>`:''}</div>${composition(l)}<footer class="card-footer"><div class="detail-subtext">LOOK ${l.num}</div><div class="look-actions"><button class="btn-board" onclick="openLook(${l.num})">상세 보기</button><button class="btn-board" onclick="recordLook(${l.num})">착용 기록</button><details class="look-more"><summary aria-label="LOOK ${l.num} 더 보기">•••</summary><button onclick="deleteLook(${l.num})">코디 삭제</button></details></div></footer></article>`;}
+function openLook(num){const l=LOOKS.find(x=>x.num===num);if(!l)return;const ref=STYLE_REFS.find(r=>'style-refs/'+r.file===l.ref_img);
+ openPanel(`<h2>${esc(lookTitle(l))}</h2><p class="detail-subtext">LOOK ${num} · ${getLookSeasons(l).join('·')}${temperatureText(l)?' · '+temperatureText(l):''}</p>${composition(l)}${l.source_refs?`<p class="detail-subtext">스타일 참고: ${l.source_refs.map(n=>'REF '+n).join(' · ')}</p>`:''}<div class="panel-actions"><button class="btn-board" onclick="recordLook(${num})">이 코디 착용 기록</button><button class="btn-small" onclick="copyReference('LOOK ${num}',this)">LOOK ${num} · 번호 복사</button><button class="btn-small" onclick="closeLightbox();showBoard(${num})">스타일링 보드 보기</button></div>${l.ref_img?`<div class="detail-section"><h3>${ref?'REF '+refNumber(ref):'착장'} 레퍼런스</h3><img class="detail-reference" src="${assetUrl(l.ref_img)}" alt="착장 레퍼런스">${ref?`<div class="ref-info">${referenceMeta(ref)}</div>`:''}</div>`:''}`);}
+function showToast(message,action,label='되돌리기'){document.querySelector('.toast')?.remove();const t=document.createElement('div');t.className='toast';t.setAttribute('role','status');const span=document.createElement('span');span.textContent=message;t.append(span);if(action){const b=document.createElement('button');b.textContent=label;b.onclick=()=>{action();t.remove();};t.append(b);}document.body.append(t);setTimeout(()=>t.remove(),10000);}
+function deleteLook(num){const before=getDeleted();if(!before.includes(num))localStorage.setItem('codi_deleted',JSON.stringify([...before,num]));renderOutfits();renderHome();renderRefs();showToast('코디를 목록에서 삭제했어요.',()=>{localStorage.setItem('codi_deleted',JSON.stringify(getDeleted().filter(x=>x!==num)));renderOutfits();renderHome();renderRefs();});}
+function recordLook(num){if(document.getElementById('lightbox').classList.contains('open'))closeLightbox();switchTab('records');document.getElementById('rec-date').value=new Date().toLocaleDateString('sv-SE',{timeZone:'Asia/Seoul'});document.getElementById('rec-look').value=String(num);document.getElementById('rec-note').value='';renderRecordPreview();document.getElementById('tab-records').scrollIntoView({block:'start'});}
+function renderRecordPreview(){document.getElementById('record-preview').innerHTML='';recordDraftItems=null;document.getElementById('rec-items-summary').textContent='';}
+function getRecords(){try{const rows=JSON.parse(localStorage.getItem('codi_records')||'[]');if(!Array.isArray(rows))return [];return rows.filter(r=>r&&validRecordDate(r.date)&&Number.isFinite(r.id)&&Number.isSafeInteger(r.look)&&(r.items===undefined||(Array.isArray(r.items)&&r.items.every(id=>typeof id==='string'&&/^[A-Z]\d{2,4}$/.test(id))))).slice(0,10000).map(r=>({...r,items:r.items||LOOKS.find(l=>l.num===r.look)?.items||[],title:String(r.title||'').slice(0,200),note:String(r.note||'').slice(0,300)}));}catch{return [];}}
+function deleteRecord(id){const records=getRecords();const removed=records.find(r=>r.id===id);localStorage.setItem('codi_records',JSON.stringify(records.filter(r=>r.id!==id)));renderRecords();renderOutfits();showToast('기록을 삭제했어요.',()=>{if(removed)localStorage.setItem('codi_records',JSON.stringify([...getRecords(),removed]));renderRecords();renderOutfits();});}
+function exportRecords(){const blob=new Blob([JSON.stringify({version:1,records:getRecords()},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='codi-records.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+function currentSeason(){const month=Number(new Date().toLocaleDateString('sv-SE',{timeZone:'Asia/Seoul'}).slice(5,7));return month>=3&&month<=5?'봄':month>=6&&month<=8?'여름':month>=9&&month<=11?'가을':'겨울';}
+function recommendationScore(l,temp,basis){const wx=window._wx?.[0];const lo=basis==='daily'&&wx?wx.min:temp;const hi=basis==='daily'&&wx?wx.max:temp;const gap=x=>x<l.temp_lo?l.temp_lo-x:x>l.temp_hi?x-l.temp_hi:0;const recent=getRecords().filter(r=>{const days=(Date.now()-new Date(r.date+'T00:00:00+09:00').getTime())/86400000;return days>=0&&days<7;}).some(r=>r.look===l.num);return gap(lo)+gap(hi)+(getLookSeasons(l).includes(currentSeason())?0:4)+(recent?3:0)-recommendationPreference(l);}
+function pickRecommendations(temp){const basis=document.getElementById('weather-basis').value;const avail=LOOKS.filter(l=>!isDeleted(l.num)&&recommendationAllowed(l));if(!window._wx?.length)return avail.filter(l=>getLookSeasons(l).includes(currentSeason())).sort((a,b)=>recommendationPreference(b)-recommendationPreference(a)).slice(0,3);const scored=avail.filter(l=>Number.isFinite(l.temp_lo)&&Number.isFinite(l.temp_hi)).map(l=>({l,score:recommendationScore(l,temp,basis)})).sort((a,b)=>a.score-b.score||a.l.num-b.l.num);const picks=[];while(scored.length&&picks.length<3){scored.sort((a,b)=>(a.score+picks.reduce((sum,p)=>sum+p.items.filter(id=>!id.startsWith('A')&&a.l.items.includes(id)).length,0)*.5)-(b.score+picks.reduce((sum,p)=>sum+p.items.filter(id=>!id.startsWith('A')&&b.l.items.includes(id)).length,0)*.5));picks.push(scored.shift().l);}return picks;}
+function renderHome(){homeState.temp=getHomeTemp();const recs=pickRecommendations(homeState.temp);if(!recs.some(l=>l.num===homeState.selected))homeState.selected=recs[0]?.num||null;document.getElementById('rec-cards').innerHTML=recs.map(l=>`<button data-look="${l.num}" aria-pressed="${l.num===homeState.selected}" class="rec-card ${l.num===homeState.selected?'selected':''}" onclick="selectHomeLook(${l.num})"><div class="rec-imgs">${l.items.filter(id=>!id.startsWith('A')).slice(0,3).map(id=>garmentImage(itemById(id)).replace(/<button[^>]*>/,'<span class="item-image">').replace('</button>','</span>')).join('')}</div><div><div class="rec-num">LOOK ${l.num}</div><div class="rec-concept">${esc(lookTitle(l))}</div></div></button>`).join('');document.getElementById('rec-subtitle').textContent=window._wx?.length?(document.getElementById('weather-basis').value==='daily'?'오늘 최저·최고 기준':'현재 '+Math.round(homeState.temp)+'° 기준'):`${currentSeason()} 코디`;document.querySelector('.home-guide').textContent=window._wx?.length?'기온·계절·최근 7일 착용과 조합 다양성을 고려했어요.':'날씨 대신 현재 계절의 코디를 보여드려요.';renderBoard();}
+function renderBoard(){const l=LOOKS.find(x=>x.num===homeState.selected);if(!l){document.getElementById('board-canvas').innerHTML='추천할 코디가 없어요.';document.getElementById('board-looknum').innerHTML='';return;}let outer=0,top=0,bottom=0,acc=0;document.getElementById('board-canvas').classList.toggle('expanded',l.items.length>4);document.getElementById('board-canvas').innerHTML=l.items.length>4?composition(l):l.items.map(itemById).filter(Boolean).map(w=>{const cat=wardrobeCategory(w);let cls,pos='';if(w.id.startsWith('A')){cls=acc++?'board-acc2':'board-acc';}else if(cat==='아우터'&&outer++===0){cls='board-outer';}else if(cat==='상의'||cat==='아우터'){cls='board-top';if(top++)pos='top:23%;';}else{cls='board-bottom';if(bottom++)pos='left:48%;';}return `<div class="board-item ${cls}" style="${pos}">${garmentImage(w,'garment-image')}</div>`;}).join('');document.getElementById('board-looknum').innerHTML=`<strong>${esc(lookTitle(l))}</strong><p class="recommendation-reason">${window._wx?.length?esc(temperatureText(l))+' · '+getLookSeasons(l).join('·'):currentSeason()+'에 입는 보유 코디'}</p><div class="panel-actions"><button class="btn-board" onclick="recordLook(${l.num})">오늘 입었어요</button><button class="btn-small" onclick="openLook(${l.num})">코디 상세</button><button class="btn-small" onclick="copyReference('LOOK ${l.num}',this)">LOOK ${l.num} · 번호 복사</button></div>`;}
+let refFilter='all';
+function setRefFilter(value){refFilter=value;renderRefs();}
+function refStatus(r){if(transferredLook(r))return 'moved';const matches=REF_MATCHES[refNumber(r)]||[];if(matches.some(m=>m[2]))return 'alternative';if(matches.length)return 'owned';return 'none';}
+function renderRefs(){const candidates=STYLE_REFS.filter(r=>refFilter==='moved'?refStatus(r)==='moved':refStatus(r)!=='moved');const list=candidates.filter(r=>{const matches=REF_MATCHES[refNumber(r)]||[];if(refFilter==='owned')return matches.some(m=>!m[2]);if(refFilter==='alternative')return matches.some(m=>m[2]);return true;});document.getElementById('ref-filter').innerHTML=[['all','전체'],['owned','보유품 연결'],['alternative','대체 가능'],['moved','코디로 옮긴 레퍼런스']].map(([v,t])=>`<button class="${refFilter===v?'active':''}" aria-pressed="${refFilter===v}" onclick="setRefFilter('${v}')">${t}</button>`).join('');document.getElementById('ref-count').textContent=`레퍼런스 ${list.length}개`;document.getElementById('ref-move-note').textContent='코디로 옮긴 원본은 별도 필터에서 확인할 수 있어요. 코디를 삭제하면 원본은 기본 목록으로 돌아옵니다.';document.getElementById('ref-grid').innerHTML=list.map(r=>{const moved=transferredLook(r);return `<article class="ref-card"><img src="${assetUrl('style-refs/'+r.file)}" alt="${esc(r.desc)}" loading="lazy" onclick="openLightbox(this.src,this.alt)" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><div class="ref-missing" hidden>원본 이미지가 없습니다.</div><div class="ref-info">${referenceMeta(r)}</div><footer class="card-footer ref-actions">${moved?`<button class="detail-link" onclick="openLook(${moved.num})">LOOK ${moved.num} 코디 보기</button>`:''}<button class="btn-small ref-id" onclick="copyReference('REF ${refNumber(r)}',this)">REF ${refNumber(r)} · 번호 복사</button></footer></article>`;}).join('')||'<div class="empty">이 조건의 레퍼런스가 없어요.</div>';}
+
+function chooseRecordLook(){openPanel(`<h2>입은 코디 선택</h2><div class="look-grid">${LOOKS.filter(l=>!isDeleted(l.num)).map(l=>`<article class="look-card"><h3 class="look-title">${esc(lookTitle(l))}</h3>${composition(l)}<button class="detail-link" onclick="selectRecordLook(${l.num})">LOOK ${l.num} 선택</button></article>`).join('')}</div>`);}
+function selectRecordLook(num){closeLightbox();document.getElementById('rec-look').value=String(num);renderRecordPreview();}
+
+
+
+// Wearing history and its generated combinations stay in this browser only.
+function validRecordDate(date){return typeof date==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(date)&&!Number.isNaN(Date.parse(date+'T00:00:00Z'))&&new Date(date+'T00:00:00Z').toISOString().slice(0,10)===date;}
+function cleanRecordWeather(w){return w&&w.city==='인천'&&Number.isFinite(w.min)&&Number.isFinite(w.max)&&w.min>=-60&&w.max<=60&&w.min<=w.max?{city:'인천',min:w.min,max:w.max,source:'Open-Meteo (날씨 모델)'}:undefined;}
+function weatherCaption(r){const w=cleanRecordWeather(r.weather);return w?`${w.city} · 최저 ${w.min}°C / 최고 ${w.max}°C · 날씨 모델`:'인천 · 날짜별 기온 미확인';}
+function recordItemsText(r){return (r.items||[]).map(id=>{const w=itemById(id);return w?`${id} ${w.color} ${categoryName(w)}`:id;}).join(' + ');}
+function lookWornWeather(l){const r=getRecords().filter(r=>r.look===l.num).sort((a,b)=>b.date.localeCompare(a.date))[0];return r?`<p class="record-weather">${esc(r.date)} 착용 · ${esc(weatherCaption(r))}</p>`:'';}
+function syncRecordLooks(){
+ let saved=[];try{saved=JSON.parse(localStorage.getItem('codi_record_looks')||'[]');}catch{}
+ if(!Array.isArray(saved))saved=[];
+ if(!WARDROBE.length)return;
+ saved=saved.filter(l=>Number.isSafeInteger(l.num)&&l.num>=10001&&Array.isArray(l.items)&&l.items.length&&l.items.every(id=>itemById(id))).map(l=>({num:l.num,items:l.items,title:String(l.title||'내 착용 코디').slice(0,200),season:String(l.season||''),reason:'',from_record:true}));
+ saved.forEach(l=>{if(!LOOKS.some(x=>x.num===l.num))LOOKS.push(l);});
+ const recs=getRecords();let changed=false;
+ const key=items=>[...new Set(items)].sort().join('|');
+ recs.forEach(r=>{
+  if(isDeleted(r.look))return;
+  const items=r.items?.length?r.items:LOOKS.find(l=>l.num===r.look)?.items;if(!items?.length)return;
+  let l=LOOKS.find(l=>key(l.items)===key(items));
+  if(!l){const num=Math.max(10000,...LOOKS.map(l=>l.num))+1;const month=Number(r.date.slice(5,7));l={num,items:[...items],title:r.title||'내 착용 코디',season:month>=3&&month<=5?'봄':month>=6&&month<=8?'여름':month>=9&&month<=11?'가을':'겨울',reason:'',from_record:true};LOOKS.push(l);saved.push(l);}
+  if(r.look!==l.num){r.look=l.num;changed=true;}r.items=[...items];
+ });
+ LOOKS.filter(l=>l.from_record).forEach(l=>{const r=recs.filter(r=>r.look===l.num&&cleanRecordWeather(r.weather)).sort((a,b)=>b.date.localeCompare(a.date))[0];if(r)l.worn_weather={date:r.date,...r.weather};});
+ localStorage.setItem('codi_record_looks',JSON.stringify(saved));if(changed)localStorage.setItem('codi_records',JSON.stringify(recs));
+}
+function mergeRecordRows(rows){return recordStorageTransaction(()=>{
+ if(!Array.isArray(rows)||rows.length>10000)throw Error('기록 형식');
+ const cleaned=rows.map(r=>{const l=LOOKS.find(l=>l.num===r.look);const items=Array.isArray(r.items)?r.items:l?.items;if(!validRecordDate(r.date)||!Number.isFinite(r.id)||!Array.isArray(items)||items.length>12||items.some(id=>typeof id!=='string'||!itemById(id)))throw Error('기록 형식');return {id:r.id,date:r.date,look:l?.num||(Number.isSafeInteger(r.look)?r.look:0),items:[...new Set(items)],title:String(r.title|| (l?lookTitle(l):'내 착용 코디')).slice(0,200),note:String(r.note||'').slice(0,300),weather:cleanRecordWeather(r.weather)};});
+ const current=getRecords();const keys=new Set(current.map(r=>r.id));const additions=cleaned.filter(r=>{if(keys.has(r.id))return false;keys.add(r.id);return true;});localStorage.setItem('codi_records',JSON.stringify([...current,...additions]));syncRecordLooks();return additions.length;
+});}
+
+async function fetchRecordWeather(date){
+ if(!validRecordDate(date))throw Error('날짜');
+ const days=(Date.now()-Date.parse(date+'T00:00:00+09:00'))/86400000;
+ const hosts=days<=90?['https://api.open-meteo.com/v1/forecast','https://archive-api.open-meteo.com/v1/archive']:['https://archive-api.open-meteo.com/v1/archive'];
+ for(const host of hosts){try{const url=host+`?latitude=37.4563&longitude=126.7052&daily=temperature_2m_max,temperature_2m_min&start_date=${date}&end_date=${date}&timezone=Asia%2FSeoul`;const res=await fetch(url,{signal:AbortSignal.timeout(12000)});if(!res.ok)continue;const j=await res.json();const i=j.daily?.time?.indexOf(date);if(i<0)continue;const w=cleanRecordWeather({city:'인천',min:j.daily.temperature_2m_min[i],max:j.daily.temperature_2m_max[i]});if(w)return w;}catch{}}
+ throw Error('기온 확인 실패');
+}
+async function hydrateRecordWeather(){
+ const dates=[...new Set(getRecords().filter(r=>!cleanRecordWeather(r.weather)).map(r=>r.date))];
+ for(const date of dates){try{const weather=await fetchRecordWeather(date);const rows=getRecords().map(r=>r.date===date?{...r,weather}:r);localStorage.setItem('codi_records',JSON.stringify(rows));syncRecordLooks();renderRecords();renderOutfits();}catch{}}
+}
+function saveRecord(){const date=document.getElementById('rec-date').value;const num=Number(document.getElementById('rec-look').value);const look=LOOKS.find(l=>l.num===num);if(!validRecordDate(date)||!look){showToast('날짜와 코디를 선택해주세요.');return;}if(!hasOutfitCore(recordDraftItems||look.items)){showToast('상의와 하의 또는 원피스를 선택해주세요.');return;}try{mergeRecordRows([{date,look:num,id:Date.now()+Math.random(),note:document.getElementById('rec-note').value.trim(),title:recordDraftItems?'내 착용 코디':lookTitle(look),items:[...(recordDraftItems||look.items)]}]);renderRecords();renderOutfits();renderHome();renderRecordPreview();showToast('착용 기록을 저장했어요. 날짜별 기온을 확인합니다.');hydrateRecordWeather();}catch{showToast('기록을 저장하지 못했어요. 기존 기록은 유지됩니다.');}}
+function renderRecords(){const recs=getRecords().sort((a,b)=>b.date.localeCompare(a.date));document.getElementById('record-count').textContent=`기록 ${recs.length}개`;document.getElementById('record-list').innerHTML=recs.map(r=>{const l=LOOKS.find(x=>x.num===r.look);return `<div class="record-item"><div class="record-content"><b>${esc(r.date)}</b><h3>${esc(r.title||(l?lookTitle(l):'저장된 코디'))}</h3><p>${esc(recordItemsText(r))}</p><p class="record-weather">${esc(weatherCaption(r))}</p><p>${esc(r.note||'')}</p>${l?`<button class="btn-small" onclick="openLook(${r.look})">LOOK ${r.look} 상세</button>`:''}</div><button class="btn-small" onclick="deleteRecord(${r.id})">삭제</button></div>`;}).join('')||'<div class="empty"><strong>아직 기록이 없어요.</strong>홈이나 코디 상세에서 착용 기록을 남겨보세요.</div>';if(!document.getElementById('rec-date').value)document.getElementById('rec-date').value=new Date().toLocaleDateString('sv-SE',{timeZone:'Asia/Seoul'});}
+async function importRecords(input){const file=input.files[0];if(!file)return;try{const data=JSON.parse(await file.text());const n=mergeRecordRows(Array.isArray(data)?data:data.records);renderRecords();renderOutfits();hydrateRecordWeather();showToast(`${n}개 기록을 가져왔어요.`);}catch{showToast('기록 파일 형식을 확인해주세요.');}input.value='';}
+// A URL fragment is read locally; no wearing history is sent to GitHub Pages.
+function importRecordFragment(){if(!location.hash.startsWith('#record-import='))return;try{const raw=location.hash.slice('#record-import='.length);if(raw.length>50000)throw Error();const rows=JSON.parse(decodeURIComponent(raw));mergeRecordRows(rows);history.replaceState(null,'',location.pathname+location.search);switchTab('records');}catch{showToast('기록 링크 형식을 확인해주세요.');}}
+
+
+let PRIVATE_META={};let PRIVATE_ASSETS={};let privateBundle=null;let recordDraftItems=null;let importingPrivateData=false;let dataLoadGeneration=0;const assetObjectUrls=new Map();
+function assetUrl(path){if(typeof path!=='string'||!Object.hasOwn(PRIVATE_ASSETS,path))return '';if(assetObjectUrls.has(path))return assetObjectUrls.get(path);const data=PRIVATE_ASSETS[path],comma=data.indexOf(','),mime=data.slice(5,data.indexOf(';')),binary=atob(data.slice(comma+1)),bytes=new Uint8Array(binary.length);for(let i=0;i<binary.length;i++)bytes[i]=binary.charCodeAt(i);const url=URL.createObjectURL(new Blob([bytes],{type:mime}));assetObjectUrls.set(path,url);return url;}
+function privateDatabase(){return new Promise((resolve,reject)=>{const request=indexedDB.open('codi_private',1);request.onupgradeneeded=()=>request.result.createObjectStore('files');request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error);});}
+async function readPrivateBundle(){const db=await privateDatabase();try{return await new Promise((resolve,reject)=>{const tx=db.transaction('files','readonly'),req=tx.objectStore('files').get('bundle');req.onsuccess=()=>resolve(req.result||null);req.onerror=()=>reject(req.error);});}finally{db.close();}}
+async function writePrivateBundle(bundle){const db=await privateDatabase();try{await new Promise((resolve,reject)=>{const tx=db.transaction('files','readwrite');tx.objectStore('files').put(bundle,'bundle');tx.oncomplete=resolve;tx.onabort=()=>reject(tx.error||Error('저장 실패'));tx.onerror=()=>reject(tx.error);});}finally{db.close();}}
+function validatePrivateBundle(b){
+ if(!b||b.format!=='codi-private-v1'||!Array.isArray(b.wardrobe)||!Array.isArray(b.looks)||!Array.isArray(b.refs)||!b.assets||typeof b.assets!=='object')throw Error('개인 옷장 파일 형식을 확인해주세요.');
+ if(b.wardrobe.length>5000||b.looks.length>20000||b.refs.length>5000)throw Error('파일 항목 수를 확인해주세요.');
+ const ids=new Set(),nums=new Set();
+ for(const w of b.wardrobe){if(!/^[A-Z]\d{2,4}$/.test(w.id)||ids.has(w.id)||typeof w.category!=='string'||typeof w.color!=='string'||typeof w.desc_short!=='string'||typeof w.season!=='string'||!Array.isArray(w.seasons)||w.seasons.some(x=>!['봄','여름','가을','겨울'].includes(x)))throw Error('옷 정보가 올바르지 않습니다.');ids.add(w.id);}
+ for(const w of b.wardrobe){for(const field of ['fit','brand_en','display_name','material','sleeve','silhouette','pattern','length'])if(w[field]!==undefined&&typeof w[field]!=='string')throw Error('옷 정보 형식을 확인해주세요.');}
+ for(const l of b.looks){if(!Number.isSafeInteger(l.num)||l.num<1||nums.has(l.num)||!Array.isArray(l.items)||!l.items.length||l.items.length>12||l.items.some(id=>!ids.has(id))||typeof l.title!=='string')throw Error('코디 정보가 올바르지 않습니다.');if(l.season!==undefined&&typeof l.season!=='string')throw Error('계절 정보를 확인해주세요.');for(const k of ['source_refs'])if(l[k]!==undefined&&(!Array.isArray(l[k])||l[k].some(n=>!Number.isSafeInteger(n))))throw Error('참고 번호를 확인해주세요.');if(l.ref_img!==undefined&&l.ref_img!==null&&typeof l.ref_img!=='string')throw Error('사진 경로를 확인해주세요.');nums.add(l.num);}
+ for(const r of b.refs){if(typeof r.file!=='string'||!/^ref-\d+[\w.-]*\.(?:jpg|jpeg|webp|png)$/i.test(r.file)||typeof r.desc!=='string')throw Error('레퍼런스 정보가 올바르지 않습니다.');}
+ for(const [path,data] of Object.entries(b.assets)){if(!/^[\w./-]+$/.test(path)||path.includes('..')||typeof data!=='string'||!/^data:image\/(?:png|jpeg|webp|gif);base64,[A-Za-z0-9+/=]+$/.test(data))throw Error('사진 파일 형식을 확인해주세요.');}
+ if(b.imageLayout){for(const a of Object.values(b.imageLayout)){if(!Array.isArray(a)||a.length!==4||a.some(n=>!Number.isFinite(n)))throw Error('사진 배치 정보를 확인해주세요.');}}
+ if(b.deleted!==undefined&&(!Array.isArray(b.deleted)||b.deleted.some(n=>!Number.isSafeInteger(n))))throw Error('삭제 정보를 확인해주세요.');
+ if(b.seedDeleted!==undefined&&(!Array.isArray(b.seedDeleted)||b.seedDeleted.some(n=>!Number.isSafeInteger(n))))throw Error('삭제 정보를 확인해주세요.');
+ if(b.records!==undefined){if(!Array.isArray(b.records)||b.records.some(r=>!validRecordDate(r.date)||!Number.isFinite(r.id)||!Array.isArray(r.items)||r.items.some(id=>!ids.has(id))))throw Error('착용 기록 형식을 확인해주세요.');}
+ if(b.refMatches){for(const rows of Object.values(b.refMatches)){if(!Array.isArray(rows)||rows.some(m=>!Array.isArray(m)||typeof m[0]!=='string'||!ids.has(m[1])||typeof m[2]!=='string'))throw Error('레퍼런스 연결 정보를 확인해주세요.');}}
+ if(b.imageMap){for(const [id,file] of Object.entries(b.imageMap)){if(!/^[A-Z]+\d+$/.test(id)||typeof file!=='string'||!Object.hasOwn(b.assets,'images/'+file))throw Error('옷 사진 연결을 확인해주세요.');}}
+ return b;
+}
+function applyPrivateBundle(b,imported=false){
+ for(const url of assetObjectUrls.values())URL.revokeObjectURL(url);assetObjectUrls.clear();
+ privateBundle=b;PRIVATE_ASSETS=b.assets;PRIVATE_META=b.profile||{};
+ WARDROBE=b.wardrobe;LOOKS=b.looks.map(l=>({...l}));STYLE_REFS=b.refs;IMG_MAP=b.imageMap||{};IMAGE_LAYOUT=b.imageLayout||{};REF_MATCHES=b.refMatches||{};SEED_DELETED=(b.seedDeleted||[]).filter(Number.isSafeInteger);
+ if(localStorage.getItem('codi_deleted')===null)localStorage.setItem('codi_deleted',JSON.stringify(SEED_DELETED));
+ if(imported&&Array.isArray(b.deleted)){localStorage.setItem('codi_deleted',JSON.stringify([...new Set([...getDeleted(),...b.deleted.filter(Number.isSafeInteger)])]));}
+ if(imported&&b.purgeUnrecordedLookCache){const rows=getRecords();let cached=[];try{cached=JSON.parse(localStorage.getItem('codi_record_looks')||'[]');}catch{}const key=a=>[...a].sort().join('|');localStorage.setItem('codi_record_looks',JSON.stringify(Array.isArray(cached)?cached.filter(l=>Array.isArray(l.items)&&rows.some(r=>key(r.items)===key(l.items))):[]));}
+ syncRecordLooks();
+ if(imported&&b.records?.length)mergeRecordRows(b.records);
+ document.getElementById('private-data-status').textContent=`내 옷장 ${WARDROBE.length}벌 · 이 브라우저에 저장됨`;
+ refreshScreens();importRecordFragment();hydrateRecordWeather();
+}
+function refreshScreens(){renderOutfits();renderWardrobe();renderRecords();renderRefs();renderHome();renderRecordPreview();}
+async function restorePrivateData(){const generation=++dataLoadGeneration;document.getElementById('private-data-status').textContent='저장된 개인 옷장을 불러오는 중이에요…';try{const b=await readPrivateBundle();if(generation!==dataLoadGeneration)return;if(b)applyPrivateBundle(validatePrivateBundle(b));else{document.getElementById('private-data-status').textContent='개인 옷장 파일을 불러와주세요. 데이터는 이 브라우저에만 저장됩니다.';refreshScreens();}}catch{if(generation!==dataLoadGeneration)return;document.getElementById('private-data-status').textContent='개인 파일을 다시 불러와주세요. 기존 착용 기록은 유지됩니다.';refreshScreens();}}
+async function importPrivateData(input){const file=input.files?.[0];if(!file)return;if(importingPrivateData){showToast('이전 파일을 불러오는 중이에요.');input.value='';return;}importingPrivateData=true;++dataLoadGeneration;const status=document.getElementById('private-data-status'),before=status.textContent;status.textContent='개인 파일을 불러오는 중이에요…';try{const b=validatePrivateBundle(JSON.parse(await file.text()));await writePrivateBundle(b);applyPrivateBundle(b,true);showToast('개인 옷장을 불러왔어요.');}catch(e){status.textContent=before;showToast(e?.name==='QuotaExceededError'?'브라우저 저장 공간이 부족합니다. 기존 파일은 유지됩니다.':(e.message||'개인 파일을 불러오지 못했어요.'));}finally{input.value='';importingPrivateData=false;}}
+function currentPrivateBackup(){if(!privateBundle)throw Error('개인 파일을 먼저 불러와주세요.');return compactPrivateData({...privateBundle,looks:LOOKS,records:getRecords()},getDeleted());}
+function exportPrivateData(){try{const backup=currentPrivateBackup();const blob=new Blob([JSON.stringify(backup)],{type:'application/json'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='codi-private-data.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}catch(e){showToast(e.message);}}
+function recommendationAllowed(l){if(l.review?.recommendation_eligible===false)return false;if(PRIVATE_META.cold_sensitive&&['가을','겨울'].includes(currentSeason())&&l.review?.exposed_short_sleeves)return false;return true;}
+function recommendationPreference(l){const score=Number(l.review?.preference_score)||0;const recs=getRecords().filter(r=>r.look===l.num);const cold=recs.some(r=>/(?:너무|조금|좀|저녁에는)?\s*추웠|추워|쌀쌀/.test(r.note||''));return Math.max(0,Math.min(2,score))+(recs.length?.5:0)-(cold?2:0);}
+function editRecordItems(){const l=LOOKS.find(x=>x.num===Number(document.getElementById('rec-look').value));if(!l){showToast('코디를 먼저 선택해주세요.');return;}const selected=recordDraftItems||l.items;openPanel(`<h2>입은 옷 변경</h2><p class="detail-subtext">실제로 입은 옷을 선택해주세요.</p><div class="record-edit-list">${WARDROBE.map(w=>`<label style="display:block;padding:8px 0"><input type="checkbox" name="record-item" value="${w.id}" ${selected.includes(w.id)?'checked':''}> ${esc(w.id+' '+w.color+' '+categoryName(w))}</label>`).join('')}</div><div class="panel-actions"><button class="btn-board" onclick="applyRecordItems()">적용</button><button class="btn-small" onclick="closeLightbox()">취소</button></div>`);}
+function hasOutfitCore(items){return items.some(id=>id.startsWith('D'))||(items.some(id=>id.startsWith('T'))&&items.some(id=>id.startsWith('B')));}
+function applyRecordItems(){const items=[...document.querySelectorAll('input[name="record-item"]:checked')].map(x=>x.value);if(!items.length||items.length>12){showToast('옷을 1–12개 선택해주세요.');return;}recordDraftItems=items;document.getElementById('rec-items-summary').textContent=recordItemsText({items});closeLightbox();}
+
+function compactPrivateData(b, deleted=[]){
+ const gone=new Set(deleted),wardrobe=b.wardrobe.map(w=>{const copy={...w};if(copy.field_evidence){copy.field_evidence=Object.fromEntries(Object.entries(copy.field_evidence).map(([k,v])=>{const {previous,...current}=v||{};return [k,current];}));}return copy;});
+ const ids=new Set(wardrobe.map(w=>w.id));
+ const looks=b.looks.filter(l=>!gone.has(l.num)).map(l=>{const keep={};for(const k of ['num','title','items','season','ref_img','source_refs','source_ref','temp_lo','temp_hi','temp_estimated','temperature_basis','from_record','worn_weather'])if(l[k]!==undefined)keep[k]=l[k];if(l.review)keep.review={recommendation_eligible:l.review.recommendation_eligible!==false,physical_fit_confirmed:!!l.review.physical_fit_confirmed,exposed_short_sleeves:!!l.review.exposed_short_sleeves,preference_score:Number(l.review.preference_score)||0};return keep;});
+ const refs=b.refs.filter(r=>Object.hasOwn(b.assets,'style-refs/'+r.file));
+ const imageMap=Object.fromEntries(Object.entries(b.imageMap||{}).filter(([id])=>ids.has(id))),imageLayout=Object.fromEntries(Object.entries(b.imageLayout||{}).filter(([id])=>ids.has(id)));
+ const needed=new Set([...Object.values(imageMap).map(file=>'images/'+file),...refs.map(r=>'style-refs/'+r.file),...looks.map(l=>l.ref_img).filter(Boolean)]);
+ const assets=Object.fromEntries(Object.entries(b.assets).filter(([path])=>needed.has(path)));
+ return {format:'codi-private-v1',version:2,wardrobe,looks,refs,imageMap,imageLayout,refMatches:b.refMatches||{},profile:b.profile||{},assets,records:b.records||[],deleted:[...gone],seedDeleted:[],purgeUnrecordedLookCache:true};
+}
+
+function recordStorageTransaction(work){const keys=['codi_records','codi_record_looks'];const before=keys.map(k=>localStorage.getItem(k)),looks=LOOKS.map(l=>({...l}));try{return work();}catch(error){for(let i=0;i<keys.length;i++){try{if(before[i]===null)localStorage.removeItem(keys[i]);else localStorage.setItem(keys[i],before[i]);}catch{}}LOOKS=looks;throw error;}}
+
+// ===== 초기화 =====
+(function() {
+  const d = new Date(new Date().toLocaleString('en-US', {timeZone:'Asia/Seoul'}));
+  const days = ['일','월','화','수','목','금','토'];
+  document.getElementById('home-date').textContent =
+    `TODAY · ${d.getMonth() + 1}월 ${d.getDate()}일 ${days[d.getDay()]}요일`;
+})();
+loadWeather();
+restorePrivateData();
+</script>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="아이템 상세" onclick="if(event.target===this)closeLightbox()"><button class="lb-close" aria-label="닫기" onclick="closeLightbox()">×</button>
+  <img id="lightbox-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="확대 이미지">
+  <div class="lb-caption" id="lightbox-caption"></div>
+</div>
+<script>
+function openLightbox(src, caption) {
+  window.detailTrigger=document.activeElement;
+  document.getElementById('lightbox').classList.remove('panel-mode');
+  document.getElementById('lightbox-img').hidden=false;
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox-caption').textContent = caption || '';
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('panel-mode');
+  document.getElementById('lightbox-img').hidden=false;
+  if(window.detailTrigger) window.detailTrigger.focus();
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) {
+ const box=document.getElementById('lightbox');if(!box.classList.contains('open'))return;
+ if(e.key==='Escape')closeLightbox();
+ if(e.key==='Tab'){const targets=[...box.querySelectorAll('button,a[href],input,select,textarea,summary')].filter(el=>el.getClientRects().length);const first=targets[0],last=targets[targets.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last?.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first?.focus();}}
+});
+</script>
+</body>
+</html>
