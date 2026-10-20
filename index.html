@@ -39,8 +39,10 @@
 </head>
 <body>
 <header><div class="header-inner"><button class="header-back" aria-label="홈으로 돌아가기" onclick="switchTab('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 3-9 9 9 9"/></svg></button><div class="logo">코디 보드</div><details class="header-menu"><summary aria-label="더 보기">•••</summary><div class="menu-content"><div id="weather">날씨 불러오는 중...</div><a href="https://github.com/chloepsh93-web/codi-board">GitHub 저장소</a></div></details></div><nav class="tabs" aria-label="주 메뉴"><button class="active" data-tab="home" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10 12 3l9 7v11h-6v-7H9v7H3Z"/></svg><span>홈</span></button><button class="" data-tab="outfits" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 5a2 2 0 1 1 3 2v3l8 6v4H3v-4l10-6M3 16h18"/></svg><span>코디 조합</span></button><button class="" data-tab="wardrobe" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="2" width="18" height="20" rx="1"/><path d="M12 2v20M8 12h1m6 0h1"/></svg><span>옷장</span></button><button class="" data-tab="records" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="17" rx="1"/><path d="M6 2v6m12-6v6M2 11h20"/></svg><span>기록</span></button><button class="" data-tab="refs" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="3" width="20" height="18" rx="1"/><path d="m4 18 6-7 4 4 3-3 4 6"/><circle cx="7" cy="8" r="1"/></svg><span>스타일 레퍼런스</span></button></nav></header>
-<main>
- <div class="backup-tools private-tools"><span id="private-data-status" role="status">개인 옷장 파일을 불러와주세요. 데이터는 이 브라우저에만 저장됩니다.</span><label class="btn-small" for="private-import">개인 파일 불러오기</label><input type="file" id="private-import" accept="application/json,.json" onchange="importPrivateData(this)" hidden><button class="btn-small" onclick="exportPrivateData()">전체 백업</button></div>
+<section id="cloud-gate" style="max-width:420px;margin:48px auto;padding:24px"><h2 style="font-size:26px">내 옷장 로그인</h2><form id="cloud-login"><label style="display:block;margin-top:20px" for="cloud-email">이메일</label><input id="cloud-email" type="email" autocomplete="username" required style="width:100%;padding:12px"><label style="display:block;margin-top:16px" for="cloud-password">비밀번호</label><input id="cloud-password" type="password" autocomplete="current-password" required style="width:100%;padding:12px"><button class="btn-board" style="width:100%;margin-top:20px">로그인</button></form><p id="cloud-message" role="status"></p></section>
+<div style="max-width:1280px;margin:auto;padding:12px 24px"><span id="cloud-status" role="status"></span> <button id="cloud-logout" class="btn-small" hidden>로그아웃</button> <button id="cloud-reload" class="btn-small" hidden>백업 후 최신 내용 불러오기</button></div>
+<main id="private-app" hidden>
+ <div class="backup-tools private-tools"><span id="private-data-status" role="status">개인 옷장 파일을 불러와주세요. 로그인 후 개인 파일을 한 번 불러와주세요.</span><label class="btn-small" for="private-import">개인 파일 불러오기</label><input type="file" id="private-import" accept="application/json,.json" onchange="importPrivateData(this)" hidden><button class="btn-small" onclick="exportPrivateData()">전체 백업</button></div>
   <section id="tab-home" class="tab-panel active">
     <div class="home-date" id="home-date"></div>
     <div class="home-weather-title">오늘의 날씨 <select aria-label="추천 기준" id="weather-basis" onchange="renderHome()"><option value="current">현재 기온</option><option value="daily">오늘 최저·최고</option></select></div>
@@ -379,11 +381,11 @@ function outfitCard(l){return `<article class="look-card" id="look-${l.num}"><di
 function openLook(num){const l=LOOKS.find(x=>x.num===num);if(!l)return;const ref=STYLE_REFS.find(r=>'style-refs/'+r.file===l.ref_img);
  openPanel(`<h2>${esc(lookTitle(l))}</h2><p class="detail-subtext">LOOK ${num} · ${getLookSeasons(l).join('·')}${temperatureText(l)?' · '+temperatureText(l):''}</p>${composition(l)}${l.source_refs?`<p class="detail-subtext">스타일 참고: ${l.source_refs.map(n=>'REF '+n).join(' · ')}</p>`:''}<div class="panel-actions"><button class="btn-board" onclick="recordLook(${num})">이 코디 착용 기록</button><button class="btn-small" onclick="copyReference('LOOK ${num}',this)">LOOK ${num} · 번호 복사</button><button class="btn-small" onclick="closeLightbox();showBoard(${num})">스타일링 보드 보기</button></div>${l.ref_img?`<div class="detail-section"><h3>${ref?'REF '+refNumber(ref):'착장'} 레퍼런스</h3><img class="detail-reference" src="${assetUrl(l.ref_img)}" alt="착장 레퍼런스">${ref?`<div class="ref-info">${referenceMeta(ref)}</div>`:''}</div>`:''}`);}
 function showToast(message,action,label='되돌리기'){document.querySelector('.toast')?.remove();const t=document.createElement('div');t.className='toast';t.setAttribute('role','status');const span=document.createElement('span');span.textContent=message;t.append(span);if(action){const b=document.createElement('button');b.textContent=label;b.onclick=()=>{action();t.remove();};t.append(b);}document.body.append(t);setTimeout(()=>t.remove(),10000);}
-function deleteLook(num){const before=getDeleted();if(!before.includes(num))localStorage.setItem('codi_deleted',JSON.stringify([...before,num]));renderOutfits();renderHome();renderRefs();showToast('코디를 목록에서 삭제했어요.',()=>{localStorage.setItem('codi_deleted',JSON.stringify(getDeleted().filter(x=>x!==num)));renderOutfits();renderHome();renderRefs();});}
+function deleteLook(num){const before=getDeleted();if(!before.includes(num))codiSetItem('codi_deleted',JSON.stringify([...before,num]));renderOutfits();renderHome();renderRefs();showToast('코디를 목록에서 삭제했어요.',()=>{codiSetItem('codi_deleted',JSON.stringify(getDeleted().filter(x=>x!==num)));renderOutfits();renderHome();renderRefs();});}
 function recordLook(num){if(document.getElementById('lightbox').classList.contains('open'))closeLightbox();switchTab('records');document.getElementById('rec-date').value=new Date().toLocaleDateString('sv-SE',{timeZone:'Asia/Seoul'});document.getElementById('rec-look').value=String(num);document.getElementById('rec-note').value='';renderRecordPreview();document.getElementById('tab-records').scrollIntoView({block:'start'});}
 function renderRecordPreview(){document.getElementById('record-preview').innerHTML='';recordDraftItems=null;document.getElementById('rec-items-summary').textContent='';}
 function getRecords(){try{const rows=JSON.parse(localStorage.getItem('codi_records')||'[]');if(!Array.isArray(rows))return [];return rows.filter(r=>r&&validRecordDate(r.date)&&Number.isFinite(r.id)&&Number.isSafeInteger(r.look)&&(r.items===undefined||(Array.isArray(r.items)&&r.items.every(id=>typeof id==='string'&&/^[A-Z]\d{2,4}$/.test(id))))).slice(0,10000).map(r=>({...r,items:r.items||LOOKS.find(l=>l.num===r.look)?.items||[],title:String(r.title||'').slice(0,200),note:String(r.note||'').slice(0,300)}));}catch{return [];}}
-function deleteRecord(id){const records=getRecords();const removed=records.find(r=>r.id===id);localStorage.setItem('codi_records',JSON.stringify(records.filter(r=>r.id!==id)));renderRecords();renderOutfits();showToast('기록을 삭제했어요.',()=>{if(removed)localStorage.setItem('codi_records',JSON.stringify([...getRecords(),removed]));renderRecords();renderOutfits();});}
+function deleteRecord(id){const records=getRecords();const removed=records.find(r=>r.id===id);codiSetItem('codi_records',JSON.stringify(records.filter(r=>r.id!==id)));renderRecords();renderOutfits();showToast('기록을 삭제했어요.',()=>{if(removed)codiSetItem('codi_records',JSON.stringify([...getRecords(),removed]));renderRecords();renderOutfits();});}
 function exportRecords(){const blob=new Blob([JSON.stringify({version:1,records:getRecords()},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='codi-records.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 function currentSeason(){const month=Number(new Date().toLocaleDateString('sv-SE',{timeZone:'Asia/Seoul'}).slice(5,7));return month>=3&&month<=5?'봄':month>=6&&month<=8?'여름':month>=9&&month<=11?'가을':'겨울';}
 function recommendationScore(l,temp,basis){const wx=window._wx?.[0];const lo=basis==='daily'&&wx?wx.min:temp;const hi=basis==='daily'&&wx?wx.max:temp;const gap=x=>x<l.temp_lo?l.temp_lo-x:x>l.temp_hi?x-l.temp_hi:0;const recent=getRecords().filter(r=>{const days=(Date.now()-new Date(r.date+'T00:00:00+09:00').getTime())/86400000;return days>=0&&days<7;}).some(r=>r.look===l.num);return gap(lo)+gap(hi)+(getLookSeasons(l).includes(currentSeason())?0:4)+(recent?3:0)-recommendationPreference(l);}
@@ -422,12 +424,12 @@ function syncRecordLooks(){
   if(r.look!==l.num){r.look=l.num;changed=true;}r.items=[...items];
  });
  LOOKS.filter(l=>l.from_record).forEach(l=>{const r=recs.filter(r=>r.look===l.num&&cleanRecordWeather(r.weather)).sort((a,b)=>b.date.localeCompare(a.date))[0];if(r)l.worn_weather={date:r.date,...r.weather};});
- localStorage.setItem('codi_record_looks',JSON.stringify(saved));if(changed)localStorage.setItem('codi_records',JSON.stringify(recs));
+ codiSetItem('codi_record_looks',JSON.stringify(saved));if(changed)codiSetItem('codi_records',JSON.stringify(recs));
 }
 function mergeRecordRows(rows){return recordStorageTransaction(()=>{
  if(!Array.isArray(rows)||rows.length>10000)throw Error('기록 형식');
  const cleaned=rows.map(r=>{const l=LOOKS.find(l=>l.num===r.look);const items=Array.isArray(r.items)?r.items:l?.items;if(!validRecordDate(r.date)||!Number.isFinite(r.id)||!Array.isArray(items)||items.length>12||items.some(id=>typeof id!=='string'||!itemById(id)))throw Error('기록 형식');return {id:r.id,date:r.date,look:l?.num||(Number.isSafeInteger(r.look)?r.look:0),items:[...new Set(items)],title:String(r.title|| (l?lookTitle(l):'내 착용 코디')).slice(0,200),note:String(r.note||'').slice(0,300),weather:cleanRecordWeather(r.weather)};});
- const current=getRecords();const keys=new Set(current.map(r=>r.id));const additions=cleaned.filter(r=>{if(keys.has(r.id))return false;keys.add(r.id);return true;});localStorage.setItem('codi_records',JSON.stringify([...current,...additions]));syncRecordLooks();return additions.length;
+ const current=getRecords();const keys=new Set(current.map(r=>r.id));const additions=cleaned.filter(r=>{if(keys.has(r.id))return false;keys.add(r.id);return true;});codiSetItem('codi_records',JSON.stringify([...current,...additions]));syncRecordLooks();return additions.length;
 });}
 
 async function fetchRecordWeather(date){
@@ -439,7 +441,7 @@ async function fetchRecordWeather(date){
 }
 async function hydrateRecordWeather(){
  const dates=[...new Set(getRecords().filter(r=>!cleanRecordWeather(r.weather)).map(r=>r.date))];
- for(const date of dates){try{const weather=await fetchRecordWeather(date);const rows=getRecords().map(r=>r.date===date?{...r,weather}:r);localStorage.setItem('codi_records',JSON.stringify(rows));syncRecordLooks();renderRecords();renderOutfits();}catch{}}
+ for(const date of dates){try{const weather=await fetchRecordWeather(date);const rows=getRecords().map(r=>r.date===date?{...r,weather}:r);codiSetItem('codi_records',JSON.stringify(rows));syncRecordLooks();renderRecords();renderOutfits();}catch{}}
 }
 function saveRecord(){const date=document.getElementById('rec-date').value;const num=Number(document.getElementById('rec-look').value);const look=LOOKS.find(l=>l.num===num);if(!validRecordDate(date)||!look){showToast('날짜와 코디를 선택해주세요.');return;}if(!hasOutfitCore(recordDraftItems||look.items)){showToast('상의와 하의 또는 원피스를 선택해주세요.');return;}try{mergeRecordRows([{date,look:num,id:Date.now()+Math.random(),note:document.getElementById('rec-note').value.trim(),title:recordDraftItems?'내 착용 코디':lookTitle(look),items:[...(recordDraftItems||look.items)]}]);renderRecords();renderOutfits();renderHome();renderRecordPreview();showToast('착용 기록을 저장했어요. 날짜별 기온을 확인합니다.');hydrateRecordWeather();}catch{showToast('기록을 저장하지 못했어요. 기존 기록은 유지됩니다.');}}
 function renderRecords(){const recs=getRecords().sort((a,b)=>b.date.localeCompare(a.date));document.getElementById('record-count').textContent=`기록 ${recs.length}개`;document.getElementById('record-list').innerHTML=recs.map(r=>{const l=LOOKS.find(x=>x.num===r.look);return `<div class="record-item"><div class="record-content"><b>${esc(r.date)}</b><h3>${esc(r.title||(l?lookTitle(l):'저장된 코디'))}</h3><p>${esc(recordItemsText(r))}</p><p class="record-weather">${esc(weatherCaption(r))}</p><p>${esc(r.note||'')}</p>${l?`<button class="btn-small" onclick="openLook(${r.look})">LOOK ${r.look} 상세</button>`:''}</div><button class="btn-small" onclick="deleteRecord(${r.id})">삭제</button></div>`;}).join('')||'<div class="empty"><strong>아직 기록이 없어요.</strong>홈이나 코디 상세에서 착용 기록을 남겨보세요.</div>';if(!document.getElementById('rec-date').value)document.getElementById('rec-date').value=new Date().toLocaleDateString('sv-SE',{timeZone:'Asia/Seoul'});}
@@ -474,17 +476,17 @@ function applyPrivateBundle(b,imported=false){
  for(const url of assetObjectUrls.values())URL.revokeObjectURL(url);assetObjectUrls.clear();
  privateBundle=b;PRIVATE_ASSETS=b.assets;PRIVATE_META=b.profile||{};
  WARDROBE=b.wardrobe;LOOKS=b.looks.map(l=>({...l}));STYLE_REFS=b.refs;IMG_MAP=b.imageMap||{};IMAGE_LAYOUT=b.imageLayout||{};REF_MATCHES=b.refMatches||{};SEED_DELETED=(b.seedDeleted||[]).filter(Number.isSafeInteger);
- if(localStorage.getItem('codi_deleted')===null)localStorage.setItem('codi_deleted',JSON.stringify(SEED_DELETED));
- if(imported&&Array.isArray(b.deleted)){localStorage.setItem('codi_deleted',JSON.stringify([...new Set([...getDeleted(),...b.deleted.filter(Number.isSafeInteger)])]));}
- if(imported&&b.purgeUnrecordedLookCache){const rows=getRecords();let cached=[];try{cached=JSON.parse(localStorage.getItem('codi_record_looks')||'[]');}catch{}const key=a=>[...a].sort().join('|');localStorage.setItem('codi_record_looks',JSON.stringify(Array.isArray(cached)?cached.filter(l=>Array.isArray(l.items)&&rows.some(r=>key(r.items)===key(l.items))):[]));}
+ if(localStorage.getItem('codi_deleted')===null)codiSetItem('codi_deleted',JSON.stringify(SEED_DELETED));
+ if(imported&&Array.isArray(b.deleted)){codiSetItem('codi_deleted',JSON.stringify([...new Set([...getDeleted(),...b.deleted.filter(Number.isSafeInteger)])]));}
+ if(imported&&b.purgeUnrecordedLookCache){const rows=getRecords();let cached=[];try{cached=JSON.parse(localStorage.getItem('codi_record_looks')||'[]');}catch{}const key=a=>[...a].sort().join('|');codiSetItem('codi_record_looks',JSON.stringify(Array.isArray(cached)?cached.filter(l=>Array.isArray(l.items)&&rows.some(r=>key(r.items)===key(l.items))):[]));}
  syncRecordLooks();
  if(imported&&b.records?.length)mergeRecordRows(b.records);
  document.getElementById('private-data-status').textContent=`내 옷장 ${WARDROBE.length}벌 · 이 브라우저에 저장됨`;
  refreshScreens();importRecordFragment();hydrateRecordWeather();
 }
 function refreshScreens(){renderOutfits();renderWardrobe();renderRecords();renderRefs();renderHome();renderRecordPreview();}
-async function restorePrivateData(){const generation=++dataLoadGeneration;document.getElementById('private-data-status').textContent='저장된 개인 옷장을 불러오는 중이에요…';try{const b=await readPrivateBundle();if(generation!==dataLoadGeneration)return;if(b)applyPrivateBundle(validatePrivateBundle(b));else{document.getElementById('private-data-status').textContent='개인 옷장 파일을 불러와주세요. 데이터는 이 브라우저에만 저장됩니다.';refreshScreens();}}catch{if(generation!==dataLoadGeneration)return;document.getElementById('private-data-status').textContent='개인 파일을 다시 불러와주세요. 기존 착용 기록은 유지됩니다.';refreshScreens();}}
-async function importPrivateData(input){const file=input.files?.[0];if(!file)return;if(importingPrivateData){showToast('이전 파일을 불러오는 중이에요.');input.value='';return;}importingPrivateData=true;++dataLoadGeneration;const status=document.getElementById('private-data-status'),before=status.textContent;status.textContent='개인 파일을 불러오는 중이에요…';try{const b=validatePrivateBundle(JSON.parse(await file.text()));await writePrivateBundle(b);applyPrivateBundle(b,true);showToast('개인 옷장을 불러왔어요.');}catch(e){status.textContent=before;showToast(e?.name==='QuotaExceededError'?'브라우저 저장 공간이 부족합니다. 기존 파일은 유지됩니다.':(e.message||'개인 파일을 불러오지 못했어요.'));}finally{input.value='';importingPrivateData=false;}}
+async function restorePrivateData(){const generation=++dataLoadGeneration;document.getElementById('private-data-status').textContent='저장된 개인 옷장을 불러오는 중이에요…';try{const b=await readPrivateBundle();if(generation!==dataLoadGeneration)return;if(b)applyPrivateBundle(validatePrivateBundle(b));else{document.getElementById('private-data-status').textContent='개인 옷장 파일을 불러와주세요. 로그인 후 개인 파일을 한 번 불러와주세요.';refreshScreens();}}catch{if(generation!==dataLoadGeneration)return;document.getElementById('private-data-status').textContent='개인 파일을 다시 불러와주세요. 기존 착용 기록은 유지됩니다.';refreshScreens();}}
+async function importPrivateData(input){const file=input.files?.[0];if(!file)return;if(importingPrivateData){showToast('이전 파일을 불러오는 중이에요.');input.value='';return;}importingPrivateData=true;++dataLoadGeneration;const status=document.getElementById('private-data-status'),before=status.textContent;status.textContent='개인 파일을 불러오는 중이에요…';try{const b=validatePrivateBundle(JSON.parse(await file.text()));await writePrivateBundle(b);applyPrivateBundle(b,true);window.CodiCloud?.imported();showToast('개인 옷장을 불러왔어요.');}catch(e){status.textContent=before;showToast(e?.name==='QuotaExceededError'?'브라우저 저장 공간이 부족합니다. 기존 파일은 유지됩니다.':(e.message||'개인 파일을 불러오지 못했어요.'));}finally{input.value='';importingPrivateData=false;}}
 function currentPrivateBackup(){if(!privateBundle)throw Error('개인 파일을 먼저 불러와주세요.');return compactPrivateData({...privateBundle,looks:LOOKS,records:getRecords()},getDeleted());}
 function exportPrivateData(){try{const backup=currentPrivateBackup();const blob=new Blob([JSON.stringify(backup)],{type:'application/json'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='codi-private-data.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}catch(e){showToast(e.message);}}
 function recommendationAllowed(l){if(l.review?.recommendation_eligible===false)return false;if(PRIVATE_META.cold_sensitive&&['가을','겨울'].includes(currentSeason())&&l.review?.exposed_short_sleeves)return false;return true;}
@@ -504,7 +506,7 @@ function compactPrivateData(b, deleted=[]){
  return {format:'codi-private-v1',version:2,wardrobe,looks,refs,imageMap,imageLayout,refMatches:b.refMatches||{},profile:b.profile||{},assets,records:b.records||[],deleted:[...gone],seedDeleted:[],purgeUnrecordedLookCache:true};
 }
 
-function recordStorageTransaction(work){const keys=['codi_records','codi_record_looks'];const before=keys.map(k=>localStorage.getItem(k)),looks=LOOKS.map(l=>({...l}));try{return work();}catch(error){for(let i=0;i<keys.length;i++){try{if(before[i]===null)localStorage.removeItem(keys[i]);else localStorage.setItem(keys[i],before[i]);}catch{}}LOOKS=looks;throw error;}}
+function recordStorageTransaction(work){const keys=['codi_records','codi_record_looks'];const before=keys.map(k=>localStorage.getItem(k)),looks=LOOKS.map(l=>({...l}));try{return work();}catch(error){for(let i=0;i<keys.length;i++){try{if(before[i]===null)localStorage.removeItem(keys[i]);else codiSetItem(keys[i],before[i]);}catch{}}LOOKS=looks;throw error;}}
 
 // ===== 초기화 =====
 (function() {
@@ -514,7 +516,7 @@ function recordStorageTransaction(work){const keys=['codi_records','codi_record_
     `TODAY · ${d.getMonth() + 1}월 ${d.getDate()}일 ${days[d.getDay()]}요일`;
 })();
 loadWeather();
-restorePrivateData();
+// Cloud mode waits for authenticated owner before loading personal data.
 </script>
 
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="아이템 상세" onclick="if(event.target===this)closeLightbox()"><button class="lb-close" aria-label="닫기" onclick="closeLightbox()">×</button>
@@ -544,5 +546,31 @@ document.addEventListener('keydown', function(e) {
  if(e.key==='Tab'){const targets=[...box.querySelectorAll('button,a[href],input,select,textarea,summary')].filter(el=>el.getClientRects().length);const first=targets[0],last=targets[targets.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last?.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first?.focus();}}
 });
 </script>
+<script>
+function codiSetItem(key,value){localStorage.setItem(key,value);if(['codi_records','codi_record_looks','codi_deleted'].includes(key))window.CodiCloud?.changed();}
+window.CodiBridge={
+ validate:validatePrivateBundle,
+ snapshot:currentPrivateBackup,
+ read:readPrivateBundle,
+ recover(b){b.records=getRecords();b.deleted=getDeleted();},
+ write:writePrivateBundle,
+ backup:exportPrivateData,
+ apply(b){
+  localStorage.setItem('codi_records',JSON.stringify(b.records||[]));
+  localStorage.setItem('codi_deleted',JSON.stringify(b.deleted||[]));
+  localStorage.setItem('codi_record_looks','[]');
+  applyPrivateBundle(b,false);
+ },
+ clear(){
+  ++dataLoadGeneration;
+  for(const url of assetObjectUrls.values())URL.revokeObjectURL(url);assetObjectUrls.clear();
+  privateBundle=null;PRIVATE_ASSETS={};PRIVATE_META={};WARDROBE=[];LOOKS=[];STYLE_REFS=[];IMG_MAP={};IMAGE_LAYOUT={};REF_MATCHES={};
+  for(const key of ['codi_records','codi_record_looks','codi_deleted'])localStorage.removeItem(key);
+  closeLightbox();refreshScreens();
+ },
+ async erase(){const db=await privateDatabase();try{await new Promise((resolve,reject)=>{const tx=db.transaction('files','readwrite');tx.objectStore('files').delete('bundle');tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);});}finally{db.close();}}
+};
+</script>
+<script type="module" src="cloud-sync.js"></script>
 </body>
 </html>
