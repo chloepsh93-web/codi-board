@@ -571,6 +571,6 @@ window.CodiBridge={
  async erase(){const db=await privateDatabase();try{await new Promise((resolve,reject)=>{const tx=db.transaction('files','readwrite');tx.objectStore('files').delete('bundle');tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);});}finally{db.close();}}
 };
 </script>
-<script type="module" src="cloud-sync.js"></script>
+<script type="module" src="cloud-sync.js?v=20261021-load-fix"></script>
 </body>
 </html>
